@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     try {
         // Ruta corregida porque projecta.json está dentro de ./projecta/
-        const res = await fetch('projecta/projecta.json');
+        const res = await fetch('../projecta/projecta.json');
         const projectIds = await res.json();
 
         projectsGrid.innerHTML = '';

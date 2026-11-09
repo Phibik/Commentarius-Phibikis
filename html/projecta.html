@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opera (Proyectos) — Commentarius Phibikis</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/projecte.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="brand">Commentarius Phibikis</a>
+            <nav class="nav-links">
+                <a href="diarium.html">Diarium</a>
+                <a href="projecta.html" class="active">Opera</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="project-container" style="padding-top: 3rem; max-width: 1000px; margin: 0 auto; padding-left: 1.5rem; padding-right: 1.5rem;">
+        
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem; margin-bottom: 2.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1.5rem;">
+            <div>
+                <h1 style="font-size: 2.2rem; margin-bottom: 0.3rem; color: var(--text-main);">Opera Omnia</h1>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">Catálogo completo de investigaciones, obras y proyectos de campo.</p>
+            </div>
+
+            <!-- Controles de Filtro -->
+            <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
+                <div>
+                    <label style="display: block; font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono); margin-bottom: 0.3rem;">ORDENAR</label>
+                    <select id="filtro-orden" style="background: var(--surface-color); color: var(--text-main); border: 1px solid var(--border-color); padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.9rem;">
+                        <option value="importancia">Por Importancia (Sacando pecho)</option>
+                        <option value="recientes">Más Recientes</option>
+                        <option value="alfabetico">Alfabético</option>
+                    </select>
+                </div>
+                <div>
+                    <label style="display: block; font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono); margin-bottom: 0.3rem;">CLASE</label>
+                    <select id="filtro-clase" style="background: var(--surface-color); color: var(--text-main); border: 1px solid var(--border-color); padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.9rem;">
+                        <option value="todos">Todos</option>
+                        <option value="opus">Opus</option>
+                        <option value="adumbratio">Adumbratio</option>
+                        <option value="video">Vídeo</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rejilla de Proyectos -->
+        <div id="proyecta-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 4rem;">
+            <p style="color: var(--text-muted);">Cargando catálogo de proyectos...</p>
+        </div>
+
+    </main>
+
+    <footer class="footer">
+        <p>Commentarius Phibikis &copy; 2026</p>
+    </footer>
+
+    <script type="module" src="../js/filtro-proyectos.js"></script>
+</body>
+</html>

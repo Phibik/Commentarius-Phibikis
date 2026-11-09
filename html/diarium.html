@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diarium — Commentarius Phibikis</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/projecte.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="brand">Commentarius Phibikis</a>
+            <nav class="nav-links">
+                <a href="diarium.html" class="active">Diarium</a>
+                <a href="projecta.html">Opera</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="project-container" style="padding-top: 3rem; max-width: 800px; margin: 0 auto; padding-left: 1.5rem; padding-right: 1.5rem;">
+        
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem; margin-bottom: 2.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1.5rem;">
+            <div>
+                <h1 style="font-size: 2.2rem; margin-bottom: 0.3rem; color: var(--text-main);">Diarium General</h1>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">Bitácora de campo, anotaciones y registro cronológico de actividad.</p>
+            </div>
+
+            <div>
+                <label style="display: block; font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono); margin-bottom: 0.3rem;">FILTRAR POR PROYECTO</label>
+                <select id="filtro-proyecto-log" style="background: var(--surface-color); color: var(--text-main); border: 1px solid var(--border-color); padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.9rem;">
+                    <option value="todos">Cargando proyectos...</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Feed de Registros -->
+        <div id="diarium-full-feed" style="display: flex; flex-direction: column; gap: 1.2rem; margin-bottom: 4rem;">
+            <p style="color: var(--text-muted);">Cargando registros de la bitácora...</p>
+        </div>
+
+    </main>
+
+    <footer class="footer">
+        <p>Commentarius Phibikis &copy; 2026</p>
+    </footer>
+
+    <script type="module" src="../js/filtro-logs.js"></script>
+</body>
+</html>
