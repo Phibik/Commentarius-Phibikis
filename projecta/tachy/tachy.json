@@ -1,0 +1,17 @@
+{
+	"nombre":	"Taquígrafia Figueroliana",
+	"version":	"0.1",
+	"clase":	"opus",
+	"tipo":		"pdf",
+	"importancia":	1,
+	
+	"sinopsis": 	"Sinopsis tachy",
+
+	"versiones": [
+		{
+			"numero": "0.1",
+			"fecha": "2026.11.08",
+			"comentario": "snapshot 1"
+		}
+	]
+}

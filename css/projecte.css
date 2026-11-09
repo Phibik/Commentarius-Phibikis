@@ -1,0 +1,202 @@
+/* ==========================================
+   LAYOUT PROYECTO — DISEÑO A (arXiv Tabs)
+   ========================================== */
+.project-container {
+    max-width: 1050px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem;
+}
+
+.breadcrumb {
+    margin-bottom: 1.5rem;
+}
+
+.breadcrumb a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+
+.breadcrumb a:hover {
+    color: var(--text-main);
+}
+
+/* Header Académico */
+.project-header {
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1.75rem;
+    margin-bottom: 2rem;
+}
+
+.header-badges {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.project-title {
+    font-size: 2.3rem;
+    font-weight: 800;
+    line-height: 1.25;
+    letter-spacing: -0.8px;
+    margin-bottom: 1rem;
+    color: var(--text-main);
+}
+
+.header-meta-line {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    flex-wrap: wrap;
+}
+
+.meta-separator {
+    color: var(--border-color);
+}
+
+.tags-inline {
+    display: inline-flex;
+    gap: 0.4rem;
+}
+
+.btn-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 5px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.btn-secondary {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: var(--text-muted);
+}
+
+/* Sistema de Pestañas (Tabs) */
+.project-tabs {
+    display: flex;
+    gap: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 2.5rem;
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    padding: 0.8rem 1.25rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+}
+
+.tab-btn:hover {
+    color: var(--text-main);
+}
+
+.tab-btn.active {
+    color: var(--accent-opus);
+    border-bottom-color: var(--accent-opus);
+}
+
+/* Ocultar / Mostrar Pestañas */
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Estilos de la Pestaña 1: Markdown & Imagen Hero */
+.project-hero-image {
+    width: 100%;
+    max-height: 420px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    margin-bottom: 2.5rem;
+    background-color: #0b0d10;
+}
+
+.project-hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.markdown-body {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: #c9cdd8;
+}
+
+.markdown-body h2 {
+    font-size: 1.4rem;
+    margin: 2rem 0 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-main);
+}
+
+.markdown-body p {
+    margin-bottom: 1.2rem;
+}
+
+.markdown-body code {
+    background-color: rgba(255, 255, 255, 0.08);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: #e2e8f0;
+}
+
+.markdown-body blockquote {
+    border-left: 3px solid var(--accent-opus);
+    background-color: rgba(59, 130, 246, 0.05);
+    padding: 1rem 1.25rem;
+    margin: 1.5rem 0;
+    border-radius: 0 6px 6px 0;
+    color: var(--text-muted);
+}
+
+/* Estilos de la Pestaña 2: PDF Wrapper */
+.pdf-wrapper {
+    width: 100%;
+    background-color: #0b0d10;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
+}
+
+.pdf-wrapper iframe {
+    display: block;
+    border: none;
+    background-color: #161920;
+}
+
+/* Responsividad en móviles */
+@media (max-width: 650px) {
+    .project-title { font-size: 1.8rem; }
+    .tab-btn { padding: 0.7rem 0.8rem; font-size: 0.85rem; }
+    .header-meta-line { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+    .meta-separator { display: none; }
+}

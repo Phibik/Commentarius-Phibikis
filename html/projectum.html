@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Cargando... — Commentarius Phibikis</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/projecte.css">
+</head>
+<body>
+
+    <!-- Navbar Fija -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="brand">Commentarius Phibikis</a>
+            <nav class="nav-links">
+                <a href="../index.html#diarium">Diarium</a>
+                <a href="../index.html#opera" class="active">Opera</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenedor Principal -->
+    <main id="project-container" class="project-container" style="padding-top: 2rem;">
+        
+        <!-- Cabecera del Proyecto -->
+        <div class="sketch-header-top" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+            <a href="../index.html" class="btn-icon" style="padding: 0.5rem 1rem; background: var(--surface-color); border: 1px solid var(--border-color); border-radius: 6px; text-decoration: none; color: var(--text-main); font-size: 0.9rem; display: inline-flex; align-items: center; gap: 0.4rem;">← Volver al índice</a>
+            <div class="sketch-meta-info" style="font-family: var(--font-mono); font-size: 0.9rem; color: var(--text-muted);">
+                <span id="proj-date-latest">----.--.--</span> &nbsp;|&nbsp; 
+                <strong style="color: var(--text-main);" id="proj-version-latest">v-.--</strong>
+            </div>
+        </div>
+
+        <!-- Título Principal -->
+        <h1 id="proj-titulo-principal" class="project-title" style="font-size: 2.4rem; margin-bottom: 0.5rem;">
+            Cargando proyecto...
+        </h1>
+
+        <!-- Barra de Acciones y Badges -->
+        <div class="sketch-actions-bar" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-color);">
+            <div style="display: flex; gap: 0.5rem; align-items: center;">
+                <span id="proj-type-badge" class="badge" style="background: var(--surface-color); border: 1px solid var(--border-color); padding: 0.3rem 0.6rem; border-radius: 4px; font-size: 0.8rem; font-family: var(--font-mono);">OPUS</span>
+            </div>
+            
+            <div class="action-buttons-group" style="display: flex; gap: 0.8rem;">
+                <a id="btn-ver-online" href="#" target="_blank" class="btn-icon" style="padding: 0.5rem 1rem; background: var(--surface-color); border: 1px solid var(--border-color); border-radius: 6px; text-decoration: none; color: var(--text-main); font-size: 0.9rem;">
+                    Ver Online (PDF)
+                </a>
+                <a id="btn-download-pdf-latest" href="#" class="btn-icon" download style="padding: 0.5rem 1rem; background: var(--surface-color); border: 1px solid var(--border-color); border-radius: 6px; text-decoration: none; color: var(--text-main); font-size: 0.9rem;">
+                    Descargar PDF
+                </a>
+                <button id="btn-copy-bibtex" class="btn-icon" style="padding: 0.5rem 1rem; background: var(--surface-color); border: 1px solid var(--border-color); border-radius: 6px; cursor: pointer; color: var(--text-main); font-size: 0.9rem;">
+                    BibTeX
+                </button>
+            </div>
+        </div>
+
+        <!-- Pestañas -->
+        <nav class="project-tabs" style="display: flex; gap: 1rem; margin-bottom: 2rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">
+            <button class="tab-btn active" data-tab="tab-bitacora" style="background: none; border: none; font-size: 1rem; color: var(--text-main); cursor: pointer; padding: 0.5rem 0; font-weight: 500;">Bitácora & Síntesis</button>
+            <button class="tab-btn" data-tab="tab-latex" style="background: none; border: none; font-size: 1rem; color: var(--text-muted); cursor: pointer; padding: 0.5rem 0;">Visor PDF</button>
+            <button class="tab-btn" data-tab="tab-versiones" style="background: none; border: none; font-size: 1rem; color: var(--text-muted); cursor: pointer; padding: 0.5rem 0;">Versiones</button>
+        </nav>
+
+        <!-- PESTAÑA 1: BITÁCORA Y SÍNTESIS -->
+        <div id="tab-bitacora" class="tab-content" style="display: block;">
+            <div class="synthesis-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start;">
+                <div>
+                    <h2 style="font-size: 1.3rem; margin-bottom: 1rem; color: var(--text-main);">Sinopsis</h2>
+                    <p id="proj-sinopsis-text" style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem;">
+                        Cargando descripción...
+                    </p>
+                    
+                    <h3 style="font-size: 1.1rem; margin-bottom: 0.8rem; color: var(--text-main);">Registros de este proyecto</h3>
+                    <div id="proj-logs-list">
+                        <!-- Logs inyectados por JS -->
+                    </div>
+                </div>
+
+                <div class="figure-box" style="background: var(--surface-color); border: 1px solid var(--border-color); padding: 1rem; border-radius: 8px;">
+                    <img id="proj-img-preview" src="" alt="Vista previa" style="width: 100%; height: auto; border-radius: 4px; display: block;" onerror="this.style.display='none'">
+                    <span class="figure-caption" style="display: block; font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem; text-align: center;">Fig. 1: Vista previa del proyecto.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- PESTAÑA 2: VISOR PDF -->
+        <div id="tab-latex" class="tab-content" style="display: none;">
+            <div class="pdf-wrapper">
+                <iframe id="proj-pdf-iframe" src="" width="100%" height="700px" style="border: none; background: #161920; border-radius: 8px;"></iframe>
+            </div>
+        </div>
+
+        <!-- PESTAÑA 3: HISTORIAL DE VERSIONES -->
+        <div id="tab-versiones" class="tab-content" style="display: none;">
+            <div style="background: var(--surface-color); border: 1px solid var(--border-color); padding: 1.5rem; border-radius: 8px;">
+                <h3 style="margin-bottom: 1rem; color: var(--text-main);">Historial de Versiones</h3>
+                <ul id="proj-versiones-list" style="list-style: none; display: flex; flex-direction: column; gap: 0.8rem; color: var(--text-muted); padding: 0;">
+                    <!-- Versiones inyectadas por JS -->
+                </ul>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="footer">
+        <p>Commentarius Phibikis &copy; 2026</p>
+    </footer>
+
+    <script type="module" src="../js/inyectar-proyecto.js"></script>
+</body>
+</html>

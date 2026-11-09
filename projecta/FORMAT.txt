@@ -1,0 +1,30 @@
+FORMAT projecta.json
+[
+	"tachy",
+	"codex-catholicorum",
+	"nas"
+]
+
+FORMAT <id>.json
+{
+	"nombre":	"Mi Proyecto",
+	"version":	"1.3",		(options: x.y, x.y.z)
+	"clase":	"opus",		(options: opus (acabat), adumbratio (inacabat))
+	"tipo":		"pdf",		(options: pdf, video...)
+	"importancia":	1,		(options: 1 (destacat), 2 (normal), 3 (menor))
+
+	"sinopsis": "Este proyecto trata de...",
+
+	"versiones": [
+		{
+			"numero": "1.3",
+			"fecha": "2026.01.01"
+			"comentario": "Arreglado"
+		},
+		{
+			"numero": "1.2",
+			"fecha": "2025.01.01"
+			"comentario": "snapshot 1"
+		}
+	]
+}
