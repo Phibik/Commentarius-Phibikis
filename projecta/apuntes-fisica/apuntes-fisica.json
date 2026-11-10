@@ -1,0 +1,18 @@
+{
+	"nombre":	"Apuntes Física Básica",
+	"version":	"1.0",
+	"clase":	"opus",
+	"tipo":		"pdf",
+	"tags":		["Apuntes"],
+	"importancia":	3,
+	
+	"sinopsis": 	"Apuntes tomados durante el primer año de carrera en la UAB. Contiene únicamente análisis vectorial en los tres tipos de sistemas de coordenadas. Destaca los gráficos tridimensionales implementados con LaTeX y Tikz.",
+
+	"versiones": [
+		{
+			"numero": "1.0",
+			"fecha": "2025.09.18",
+			"comentario": "Formato LaTeX v0.1 antiguo"
+		}
+	]
+}

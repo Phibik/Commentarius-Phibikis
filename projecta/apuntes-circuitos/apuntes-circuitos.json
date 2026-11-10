@@ -1,0 +1,18 @@
+{
+	"nombre":	"Apuntes Circuitos",
+	"version":	"1.0",
+	"clase":	"opus",
+	"tipo":		"pdf",
+	"tags":		["Apuntes", "Electrónica"],
+	"importancia":	3,
+	
+	"sinopsis": 	"Apuntes tomados durante el primer año de carrera en la UAB. Contiene introducción a los elementos pasivos básicos, leyes de Kirchhoff, métodos, teoremas y circuitos transitorios con condensadores y bobinas.",
+
+	"versiones": [
+		{
+			"numero": "1.0",
+			"fecha": "2024.02.09",
+			"comentario": "Formato LaTeX v0.1 antiguo"
+		}
+	]
+}

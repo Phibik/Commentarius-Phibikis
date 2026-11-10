@@ -1,8 +1,9 @@
 {
 	"nombre":	"Taquígrafia Figueroliana",
 	"version":	"0.1",
-	"clase":	"opus",
+	"clase":	"adumbratio",
 	"tipo":		"pdf",
+	"tags":		["Lingüística", "Sistemas"],
 	"importancia":	1,
 	
 	"sinopsis": 	"Sinopsis tachy",

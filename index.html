@@ -21,9 +21,50 @@
 
     <main class="project-container">
         
+        <!-- SECCIÓN INTRODUCCIÓN & LEYENDA -->
+        <section id="manifestum" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 4rem; align-items: start;">
+            
+            <!-- Presentación / Manifiesto -->
+            <div>
+                <h1 class="project-title" style="font-size: 2.2rem; margin-bottom: 1rem; color: var(--text-main);">Commentarius Phibikis</h1>
+                <p style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1rem;">
+                    Bienvenido a mi cuaderno de campo digital. Este espacio funciona como un depósito estático e independiente de investigaciones abiertas, proyectos de ingeniería y notas técnicas.
+                </p>
+                <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.6;">
+                    Construido bajo una filosofía minimalista sin bases de datos pesadas: todo el conocimiento se organiza mediante archivos planos en formato abierto.
+                </p>
+            </div>
+
+            <!-- Cuadrado de Leyenda / Glosario -->
+            <div style="background: var(--surface-color); border: 1px solid var(--border-color); padding: 1.5rem; border-radius: 8px;">
+                <h3 style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); font-family: var(--font-mono); margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; margin-top: 0;">
+                    📖 LEYENDA Y NOMENCLATURA
+                </h3>
+                <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; display: flex; flex-direction: column; gap: 0.75rem;">
+                    <li>
+                        <strong style="color: var(--text-main); font-family: var(--font-mono);">Projecta</strong> 
+                        <span style="color: var(--text-muted); display: block; font-size: 0.85rem;">Proyectos de toda clase en cualquier tipo de estado.</span>
+                    </li>
+                    <li>
+                        <strong style="color: var(--text-main); font-family: var(--font-mono);">Opus</strong> 
+                        <span style="color: var(--text-muted); display: block; font-size: 0.85rem;">Trabajo, proyecto terminados y formalmente acabado.</span>
+                    </li>
+                    <li>
+                        <strong style="color: var(--text-main); font-family: var(--font-mono);">Adumbratio</strong> 
+                        <span style="color: var(--text-muted); display: block; font-size: 0.85rem;">Borrador, proyecto en desarrollo e inacabado.</span>
+                    </li>
+                    <li>
+                        <strong style="color: var(--text-main); font-family: var(--font-mono);">Diarium</strong> 
+                        <span style="color: var(--text-muted); display: block; font-size: 0.85rem;">Bitácora cronológica con los últimos avances y logs.</span>
+                    </li>
+                </ul>
+            </div>
+
+        </section>
+
         <!-- SECCIÓN OPERA (Proyectos) -->
         <section id="opera" style="margin-bottom: 4rem;">
-            <h1 class="project-title" style="font-size: 2rem; margin-bottom: 1.5rem;">Opera (Proyectos)</h1>
+            <h2 class="project-title" style="font-size: 1.8rem; margin-bottom: 1.5rem;">Opera (Proyectos)</h2>
             <div id="projects-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
                 <!-- Se inyecta dinámicamente -->
                 <p style="color: var(--text-muted);">Cargando proyectos...</p>

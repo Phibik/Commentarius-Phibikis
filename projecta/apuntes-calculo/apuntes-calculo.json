@@ -1,0 +1,18 @@
+{
+	"nombre":	"Apuntes Cálculo",
+	"version":	"1.0",
+	"clase":	"opus",
+	"tipo":		"pdf",
+	"tags":		["Apuntes", "Matemáticas"],
+	"importancia":	3,
+	
+	"sinopsis": 	"Apuntes tomados durante el primer año de carrera en la UAB. Contiene introducción a conjuntos, números complejos, funciones trigonométricas y algo de cálculo infinitesimal.",
+
+	"versiones": [
+		{
+			"numero": "1.0",
+			"fecha": "2024.02.09",
+			"comentario": "Formato LaTeX v0.1 antiguo"
+		}
+	]
+}

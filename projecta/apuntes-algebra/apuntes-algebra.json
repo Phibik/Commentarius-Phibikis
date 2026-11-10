@@ -3,7 +3,8 @@
 	"version":	"1.0",
 	"clase":	"opus",
 	"tipo":		"pdf",
-	"importancia":	1,
+	"tags":		["Apuntes", "Matemáticas"],
+	"importancia":	3,
 	
 	"sinopsis": 	"Apuntes tomados durante el primer año de carrera en la UAB. Contiene introducción a conjuntos, números complejos, matrices y algo de espacios vectoriales.",
 

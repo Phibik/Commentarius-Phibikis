@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Título del Proyecto — Commentarius Phibikis</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/projecte.css">
+    <style>
+        /* Estilos específicos basados en tu croquis */
+        .sketch-header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .sketch-meta-info {
+            text-align: right;
+            font-family: var(--font-mono);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        .sketch-actions-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .action-buttons-group {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .btn-icon {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 0.5rem 0.8rem;
+            border-radius: 6px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: 0.2s;
+            text-decoration: none;
+        }
+        .btn-icon:hover {
+            background: var(--surface-hover);
+            border-color: var(--text-muted);
+        }
+        /* Layout Síntesis (Texto + Imagen lateral como en el croquis) */
+        .synthesis-grid {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 2rem;
+            align-items: start;
+            margin-bottom: 3rem;
+        }
+        .figure-box {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+        }
+        .figure-box img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+        }
+        .figure-caption {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+        /* Sección de Logs Relacionados abajo */
+        .logs-section {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+        .logs-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .log-mini-card {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            padding: 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            color: var(--text-main);
+            transition: 0.2s;
+        }
+        .log-mini-card:hover {
+            border-color: var(--accent-opus);
+            transform: translateY(-2px);
+        }
+        .log-date {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+        @media (max-width: 850px) {
+            .synthesis-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="brand">Commentarius Phibikis</a>
+            <nav class="nav-links">
+                <a href="index.html#diarium">Diarium</a>
+                <a href="index.html#adumbrationes">Adumbrationes</a>
+                <a href="index.html#opera" class="active">Opera</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="project-container">
+
+        <!-- Cabecera del Croquis: Botón volver + Fecha y Versión -->
+        <div class="sketch-header-top">
+            <a href="index.html" class="btn-icon">← Volver</a>
+            <div class="sketch-meta-info">
+                <span>2026.01.01</span> &nbsp;|&nbsp; <strong style="color: var(--text-main);">v1.3</strong>
+            </div>
+        </div>
+
+        <!-- Título principal -->
+        <h1 class="project-title" style="font-size: 2.4rem; margin-bottom: 0.5rem;">Título del Proyecto</h1>
+
+        <!-- Barra de Badges/Tags y Botones de Acción (Ojear, Descargar, BibTeX) -->
+        <div class="sketch-actions-bar">
+            <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+                <span class="badge badge-opus">Opus</span>
+                <span class="tag">#infraestructura</span>
+                <span class="tag">#redes</span>
+            </div>
+            
+            <div class="action-buttons-group">
+                <!-- Ver online (LaTeX / PDF) -->
+                <a href="#tab-pdf" class="btn-icon">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                    Ver LaTeX
+                </a>
+                <!-- Descargar -->
+                <a href="pdf/proyecto.pdf" class="btn-icon" download>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                    PDF
+                </a>
+                <!-- Botón BibTeX (¡Toque académico puro!) -->
+                <button class="btn-icon" onclick="alert('Copiado BibTeX al portapapeles: @article{phibikis2026...')">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path><path d="M6 6h10"></path><path d="M6 10h10"></path></svg>
+                    BibTeX
+                </button>
+            </div>
+        </div>
+
+        <!-- Pestañas (Tabs) del Croquis: Bitácora | LaTeX Online | Versiones -->
+        <nav class="project-tabs" style="margin-bottom: 2rem;">
+            <button class="tab-btn active" data-tab="tab-bitacora">Bitácora</button>
+            <button class="tab-btn" data-tab="tab-latex">LaTeX Online</button>
+            <button class="tab-btn" data-tab="tab-versiones">Versiones</button>
+        </nav>
+
+        <!-- CONTENIDO PESTAÑA 1: BITÁCORA / SÍNTESIS -->
+        <div id="tab-bitacora" class="tab-content active">
+            
+            <!-- Estructura de Síntesis del Croquis (Texto a la izda, Esquema/Foto a la dcha) -->
+            <div class="synthesis-grid">
+                <div>
+                    <h2 style="font-size: 1.3rem; margin-bottom: 1rem; color: var(--text-main);">Síntesis</h2>
+                    <p style="color: var(--text-muted); margin-bottom: 1rem; line-height: 1.7;">
+                        Este documento describe la formulación teórica y el despliegue práctico del sistema. Se prioriza la robustez operativa frente al núcleo de procesamiento local, optimizando los cuellos de botella detectados en iteraciones pasadas.
+                    </p>
+                    <p style="color: var(--text-muted); line-height: 1.7;">
+                        La arquitectura permite una escalabilidad modular mediante contenedores independientes sincronizados por volúmenes cifrados.
+                    </p>
+                </div>
+
+                <!-- Caja de Esquema / Figura del croquis -->
+                <div class="figure-box">
+                    <img src="images/nas-preview.png" alt="Esquema" onerror="this.src='https://via.placeholder.com/400x250/161920/8b92a4?text=Esquema+Arquitectura'">
+                    <span class="figure-caption">Fig. 1: Diagrama esquemático del nodo.</span>
+                </div>
+            </div>
+
+            <!-- Sección Altum / Notas adicionales -->
+            <div style="margin-top: 3rem;">
+                <h2 style="font-size: 1.3rem; margin-bottom: 1rem; color: var(--text-main);">Notas de Campo (Altum)</h2>
+                <p style="color: var(--text-muted); line-height: 1.7;">
+                    Revisiones periódicas sobre la integridad de los datos y comportamiento térmico bajo cargas sostenidas de escritura.
+                </p>
+            </div>
+
+        </div>
+
+        <!-- CONTENIDO PESTAÑA 2: LATEX ONLINE -->
+        <div id="tab-latex" class="tab-content">
+            <div class="pdf-wrapper">
+                <iframe src="pdf/nas_architecture.pdf" width="100%" height="700px" style="border: none; background: #161920;"></iframe>
+            </div>
+        </div>
+
+        <!-- CONTENIDO PESTAÑA 3: VERSIONES -->
+        <div id="tab-versiones" class="tab-content">
+            <div style="background: var(--surface-color); border: 1px solid var(--border-color); padding: 1.5rem; border-radius: 8px;">
+                <h3 style="margin-bottom: 1rem;">Historial de Versiones del Documento</h3>
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.8rem; color: var(--text-muted);">
+                    <li><strong style="color: var(--text-main);">v1.3</strong> (2026-01-01) — Actualización de esquemas de red y corrección de erratas.</li>
+                    <li><strong style="color: var(--text-main);">v1.2</strong> (2025-11-20) — Estabilización del núcleo y despliegue inicial.</li>
+                    <li><strong style="color: var(--text-main);">v1.0</strong> (2025-10-05) — Borrador inicial (Adumbratio).</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SECCIÓN INFERIOR DE LOGS RELACIONADOS (Del croquis) -->
+        <section class="logs-section">
+            <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Logs relacionados (Diarium)</h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">Entradas de bitácora vinculadas a este desarrollo:</p>
+            
+            <div class="logs-cards-grid">
+                <a href="#" class="log-mini-card">
+                    <span class="log-date">2026-01-02</span>
+                    <strong>Log 042: Pruebas de estrés térmico</strong>
+                </a>
+                <a href="#" class="log-mini-card">
+                    <span class="log-date">2025-12-28</span>
+                    <strong>Log 039: Configuración de volúmenes Docker</strong>
+                </a>
+                <a href="#" class="log-mini-card">
+                    <span class="log-date">2025-12-15</span>
+                    <strong>Log 035: Diseño inicial del esquema</strong>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <p>Commentarius Phibikis &copy; 2026 — Compilado en HTML/CSS/JS Estático</p>
+    </footer>
+
+    <script>
+        // Script simple para las pestañas del croquis
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetId = button.getAttribute('data-tab');
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    button.classList.add('active');
+                    document.getElementById(targetId).classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{
+	"nombre":	"Apuntes C++",
+	"version":	"0.1",
+	"clase":	"adumbratio",
+	"tipo":		"pdf",
+	"tags":		["Apuntes", "Programación"],
+	"importancia":	3,
+	
+	"sinopsis": 	"Guía comprensible muy precisa de las características de C++.",
+
+	"versiones": [
+		{
+			"numero": "0.1",
+			"fecha": "2024.10.16",
+			"comentario": "Formato LaTeX v0.1 antiguo"
+		}
+	]
+}

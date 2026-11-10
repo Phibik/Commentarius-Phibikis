@@ -1,0 +1,18 @@
+{
+	"nombre":	"Codex Argumentorum Catholicorum",
+	"version":	"0.1",
+	"clase":	"adumbratio",
+	"tipo":		"pdf",
+	"tags":		["Filosofía", "Teología"],
+	"importancia":	1,
+	
+	"sinopsis": 	"Recopilación en LaTeX de argumentos teístas, cristianos y católicos.",
+
+	"versiones": [
+		{
+			"numero": "0.1",
+			"fecha": "2026.10.14",
+			"comentario": "Snapshot 1"
+		}
+	]
+}

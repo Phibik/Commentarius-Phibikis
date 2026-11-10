@@ -21,32 +21,53 @@
 
     <main class="project-container" style="padding-top: 3rem; max-width: 1000px; margin: 0 auto; padding-left: 1.5rem; padding-right: 1.5rem;">
         
-        <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem; margin-bottom: 2.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1.5rem;">
-            <div>
-                <h1 style="font-size: 2.2rem; margin-bottom: 0.3rem; color: var(--text-main);">Opera Omnia</h1>
-                <p style="color: var(--text-muted); font-size: 0.95rem;">Catálogo completo de investigaciones, obras y proyectos de campo.</p>
+        <div style="margin-bottom: 2rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1.5rem;">
+            
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
+                <div>
+                    <h1 style="font-size: 2.2rem; margin-bottom: 0.3rem; color: var(--text-main);">Opera Omnia</h1>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">Catálogo maestro de publicaciones, borradores y contenido audiovisual.</p>
+                </div>
+
+                <!-- Barra de Filtros de 3 Ejes -->
+                <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
+                    <div>
+                        <label style="display: block; font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-mono); margin-bottom: 0.3rem; letter-spacing: 0.05em;">ORDEN</label>
+                        <select id="filtro-orden" style="background: var(--surface-color); color: var(--text-main); border: 1px solid var(--border-color); padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.85rem;">
+                            <option value="importancia">Importancia Decimal</option>
+                            <option value="recientes">Más Recientes</option>
+                            <option value="alfabetico">Alfabético</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label style="display: block; font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-mono); margin-bottom: 0.3rem; letter-spacing: 0.05em;">CLASE (MADUREZ)</label>
+                        <select id="filtro-clase" style="background: var(--surface-color); color: var(--text-main); border: 1px solid var(--border-color); padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.85rem;">
+                            <option value="todos">Todas</option>
+                            <option value="opus">Opus (Obras finalizadas)</option>
+                            <option value="adumbratio">Adumbratio (Borradores/Notas)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label style="display: block; font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-mono); margin-bottom: 0.3rem; letter-spacing: 0.05em;">FORMATO</label>
+                        <select id="filtro-formato" style="background: var(--surface-color); color: var(--text-main); border: 1px solid var(--border-color); padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.85rem;">
+                            <option value="todos">Todos</option>
+                            <option value="pdf">PDF / Documento</option>
+                            <option value="video">Vídeo</option>
+                        </select>
+                    </div>
+                </div>
             </div>
 
-            <!-- Controles de Filtro -->
-            <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
-                <div>
-                    <label style="display: block; font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono); margin-bottom: 0.3rem;">ORDENAR</label>
-                    <select id="filtro-orden" style="background: var(--surface-color); color: var(--text-main); border: 1px solid var(--border-color); padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.9rem;">
-                        <option value="importancia">Por Importancia (Sacando pecho)</option>
-                        <option value="recientes">Más Recientes</option>
-                        <option value="alfabetico">Alfabético</option>
-                    </select>
-                </div>
-                <div>
-                    <label style="display: block; font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono); margin-bottom: 0.3rem;">CLASE</label>
-                    <select id="filtro-clase" style="background: var(--surface-color); color: var(--text-main); border: 1px solid var(--border-color); padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.9rem;">
-                        <option value="todos">Todos</option>
-                        <option value="opus">Opus</option>
-                        <option value="adumbratio">Adumbratio</option>
-                        <option value="video">Vídeo</option>
-                    </select>
+            <!-- Botones de Tags / Etiquetas (Pills) -->
+            <div id="wrapper-tags">
+                <label style="display: block; font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-mono); margin-bottom: 0.5rem; letter-spacing: 0.05em;">FILTRAR POR ETIQUETAS</label>
+                <div id="contenedor-tags" style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                    <!-- Inyectado dinámicamente -->
                 </div>
             </div>
+
         </div>
 
         <!-- Rejilla de Proyectos -->
@@ -60,6 +81,7 @@
         <p>Commentarius Phibikis &copy; 2026</p>
     </footer>
 
+    <script type="module" src="../js/inyectar-index-proyectos.js"></script>
     <script type="module" src="../js/filtro-proyectos.js"></script>
 </body>
 </html>

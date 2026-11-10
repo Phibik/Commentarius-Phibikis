@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commentarius Phibikis</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Navegación Principal -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="brand">Commentarius Phibikis</a>
+            <nav class="nav-links">
+                <a href="#diarium">Diarium</a>
+                <a href="#adumbrationes">Adumbrationes</a>
+                <a href="#opera" class="active">Opera</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Espacio Principal -->
+    <main class="main-container">
+        
+        <section class="hero">
+            <h1 class="hero-title">Digital Garden & Technical Notes</h1>
+            <p class="hero-subtitle">Bitácora de proyectos, experimentos de ingeniería, conlang y lógica.</p>
+        </section>
+
+        <!-- Filtros Rápidos -->
+        <div class="filter-bar">
+            <span class="filter-label">Secciones:</span>
+            <button class="btn-filter active">Todos</button>
+            <button class="btn-filter">Opera</button>
+            <button class="btn-filter">Adumbrationes</button>
+            <button class="btn-filter">Diarium</button>
+        </div>
+
+        <!-- Rejilla de Proyectos con Imágenes -->
+        <section class="projects-grid">
+            
+            <!-- Ejemplo 1: Opus (Con imagen de preview) -->
+            <article class="card opus border-level-1">
+                <div class="card-image-wrapper">
+                    <img src="images/nas-preview.png" alt="Servidor NAS Pi 5" class="card-image" onerror="this.src='https://via.placeholder.com/600x340/161920/8b92a4?text=Raspberry+Pi+NAS'">
+                    <span class="badge badge-opus badge-floating">Opus</span>
+                </div>
+                
+                <div class="card-body">
+                    <div class="card-header">
+                        <span class="badge badge-level">Destacat</span>
+                        <span class="version-tag">v1.0</span>
+                    </div>
+                    
+                    <h2 class="card-title">
+                        <a href="projecte.html?id=nas-pi5">Servidor NAS Doméstico & Micro-datacenter</a>
+                    </h2>
+                    
+                    <p class="card-excerpt">
+                        Implementación de almacenamiento local cifrado sobre Raspberry Pi 5. Gestión de Docker, Samba y estrategias de mitigación térmica.
+                    </p>
+                </div>
+
+                <div class="card-footer">
+                    <div class="tags">
+                        <span class="tag">#linux</span>
+                        <span class="tag">#pi5</span>
+                        <span class="tag">#redes</span>
+                    </div>
+                    <a href="projecte.html?id=nas-pi5" class="link-arrow">Ver ficha →</a>
+                </div>
+            </article>
+
+            <!-- Ejemplo 2: Adumbratio (Con esquemas de la conlang/taquigrafía) -->
+            <article class="card adumbratio">
+                <div class="card-image-wrapper">
+                    <img src="images/tachy-preview.png" alt="Taquigrafía Avanzada" class="card-image" onerror="this.src='https://via.placeholder.com/600x340/161920/8b92a4?text=Taquigrafia+Draft'">
+                    <span class="badge badge-adumbratio badge-floating">Adumbratio</span>
+                </div>
+                
+                <div class="card-body">
+                    <div class="card-header">
+                        <span class="version-tag">v0.1</span>
+                    </div>
+                    
+                    <h2 class="card-title">
+                        <a href="projecte.html?id=tachy">Sistema de Taquigrafía Avanzada</a>
+                    </h2>
+                    
+                    <p class="card-excerpt">
+                        Bosquejo inicial sobre la optimización fonética de caracteres para toma rápida de notas sintácticas.
+                    </p>
+                </div>
+
+                <div class="card-footer">
+                    <div class="tags">
+                        <span class="tag">#conlang</span>
+                        <span class="tag">#sintaxis</span>
+                    </div>
+                    <a href="projecte.html?id=tachy" class="link-arrow">Ver ficha →</a>
+                </div>
+            </article>
+
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <p>Commentarius Phibikis &copy; 2026 — Compilado en HTML/CSS/JS Estático</p>
+    </footer>
+
+</body>
+</html>
