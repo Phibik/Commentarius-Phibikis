@@ -12,7 +12,7 @@ FORMAT <id>.json
 	"clase":	"opus",		(options: opus (acabat), adumbratio (inacabat))
 	"tipo":		"pdf",		(options: pdf, video...)
 	"tags":		["Filosofía"]	(array de temes)
-	"importancia":	1,		(options: 1 (destacat), 2 (normal), 3 (menor))
+	"importancia":	1,		(options: 0 (molt destacat, nomes uns pocs), 1 (destacat), 2 (normal), 3 (menor))
 
 	"sinopsis": "Este proyecto trata de...",
 

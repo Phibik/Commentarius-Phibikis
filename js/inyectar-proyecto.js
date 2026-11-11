@@ -71,23 +71,20 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         }
 
-        // 4. Logs horizontales en la Bitácora
+        // 4. Logs del Diarium (Renderizados con .log-card)
         const projLogsList = document.getElementById('proj-logs-list');
         if (projLogsList) {
             const filteredLogs = diariumLogs.filter(log => log.proyecto === projectId);
             if (filteredLogs.length > 0) {
-                projLogsList.style.display = 'flex';
-                projLogsList.style.flexWrap = 'wrap';
-                projLogsList.style.gap = '1rem';
-                
                 projLogsList.innerHTML = filteredLogs.map(log => `
-                    <div style="background: var(--surface-color); border: 1px solid var(--border-color); padding: 0.9rem 1.1rem; border-radius: 6px; flex: 1 1 240px; min-width: 200px;">
-                        <span style="font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono); display: block; margin-bottom: 0.3rem;">📅 ${log.fecha}</span>
-                        <p style="color: var(--text-main); font-size: 0.88rem; margin: 0; line-height: 1.4;">${log.texto}</p>
+                    <div class="log-card">
+                        <div class="log-header">
+                            <span class="log-date">📅 ${log.fecha}</span>
+                        </div>
+                        <p class="log-text">${log.texto}</p>
                     </div>
                 `).join('');
             } else {
-                projLogsList.style.display = 'block';
                 projLogsList.innerHTML = `<p style="color: var(--text-muted); font-size: 0.9rem;">No hay registros de bitácora para este proyecto todavía.</p>`;
             }
         }

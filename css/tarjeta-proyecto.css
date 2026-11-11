@@ -1,0 +1,282 @@
+/* ==========================================================================
+   TARJETA DE PROYECTO (.card-project) — ARQUITECTURA DE DOBLE CAPA
+   ========================================================================== */
+
+.card-project {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.35rem;
+    border-radius: 8px;
+    text-decoration: none;
+    color: inherit;
+
+    /* Matriz 3D independiente */
+    transform-style: preserve-3d;
+    transform: perspective(1000px) 
+               rotateX(var(--rotate-x, 0deg)) 
+               rotateY(var(--rotate-y, 0deg));
+    will-change: transform, opacity, translate;
+
+    /* Entrada escalonada fluida */
+    animation: cardEntrance 1250ms var(--ease-hypr) calc(var(--card-index, 0) * 100ms) both;
+
+    /* Transición suave y continua para evitar parpadeos al entrar/salir */
+    transition: transform 300ms var(--ease-hypr);
+}
+
+@keyframes cardEntrance {
+    from {
+        opacity: 0;
+        translate: 0 30px;
+        scale: 0.9;
+    }
+    to {
+        opacity: 1;
+        translate: 0 0;
+        scale: 1;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   CAPA 1: BORDE ANIMADO Y RESPLANDOR (::before)
+   -------------------------------------------------------------------------- */
+.card-project::before {
+    content: '';
+    position: absolute;
+    /* Reemplazo de inset: -1px por medidas relativas robustas al zoom */
+    top: -1px;
+    left: -1px;
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    
+    /* Fuerza capa de GPU estable para evitar que se recorte al cambiar de tamaño */
+    transform: translateZ(0); 
+    
+    border-radius: 9px;
+    background: conic-gradient(
+        from var(--border-angle),
+        var(--accent-primary),
+        var(--accent-secondary),
+        var(--accent-tertiary),
+        var(--accent-primary)
+    );
+    
+    animation: rotateBorderGradient var(--border-animation-speed) linear infinite;
+    
+    /* Control de opacidad por proximidad */
+    opacity: var(--proximity-opacity, 0);
+    transition: opacity 250ms ease-out, box-shadow 300ms ease-out;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* --------------------------------------------------------------------------
+   CAPA 2: SUPERFICIE INTERIOR SÓLIDA (::after - inset: 0)
+   -------------------------------------------------------------------------- */
+.card-project::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 8px;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    transition: background-color 300ms ease, border-color 300ms ease;
+    z-index: 1;
+}
+
+/* El contenido HTML se coloca por encima de la superficie sólida */
+.card-project > * {
+    position: relative;
+    z-index: 2;
+}
+
+/* --------------------------------------------------------------------------
+   ESTADOS HOVER
+   -------------------------------------------------------------------------- */
+.card-project:hover {
+    transform: perspective(1000px) 
+               translateY(-5px) 
+               rotateX(var(--rotate-x, 0deg)) 
+               rotateY(var(--rotate-y, 0deg));
+}
+
+/* Al hacer hover, el borde brilla al 100% y proyecta resplandor */
+.card-project:hover::before {
+    opacity: 1;
+    box-shadow: 0 14px 35px -8px rgba(0, 0, 0, 0.8),
+                0 0 20px -2px rgba(250, 204, 21, 0.22);
+}
+
+/* La superficie interior pasa a un gris ligeramente más elevado y oculta el borde neutro */
+.card-project:hover::after {
+    background-color: var(--bg-surface-hover);
+    border-color: transparent;
+}
+
+@keyframes rotateBorderGradient {
+    to {
+        --border-angle: 360deg;
+    }
+}
+
+/* ==========================================================================
+   BARRA SUPERIOR (BADGE + NIVELES DE IMPORTANCIA)
+   ========================================================================== */
+
+.card-project .card-top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.card-project .card-importance {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    line-height: 1;
+    margin-left: auto;
+}
+
+/* Nivel 2: Gris sobrio */
+.card-project .card-importance.star-level-2 {
+    color: var(--text-main);
+    opacity: 0.5;
+}
+
+/* Nivel 1: Color primario */
+.card-project .card-importance.star-level-1 {
+    color: var(--accent-primary);
+    opacity: 0.9;
+}
+
+/* Nivel 0: Resplandor para tarjetas destacadas */
+.card-project .card-importance.star-level-0 {
+    color: var(--accent-primary);
+    text-shadow: 0 0 8px rgba(250, 204, 21, 0.6);
+}
+
+.badge-type {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    padding: 0.22rem 0.6rem;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+}
+
+.badge-type.opus,
+.badge-type[data-type="opus"] {
+    background-color: var(--color-opus-bg);
+    color: var(--color-opus);
+    border: 1px solid rgba(56, 189, 248, 0.25);
+}
+
+.badge-type.adumbratio,
+.badge-type[data-type="adumbratio"] {
+    background-color: var(--color-adumbratio-bg);
+    color: var(--color-adumbratio);
+    border: 1px solid rgba(251, 146, 60, 0.25);
+}
+
+/* ==========================================================================
+   TÍTULO (SHIMMER PERMANENTE RESERVADO A IMPORTANCIA 0)
+   ========================================================================== */
+
+.card-project .card-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text-main);
+    margin: 0;
+    line-height: 1.35;
+    transition: color var(--transition-smooth);
+}
+
+/* Shimmer animado continuo reservado a la clase .has-shimmer */
+.card-project .card-title.has-shimmer {
+    background: var(--shimmer-gradient);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textShimmer var(--shimmer-speed) linear infinite;
+}
+
+@keyframes textShimmer {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
+}
+
+/* ==========================================================================
+   CUERPO: SINOPSIS
+   ========================================================================== */
+
+.card-project .card-sinopsis {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* ==========================================================================
+   FOOTER: FECHA Y ETIQUETAS RESPONSIVAS
+   ========================================================================== */
+
+.card-project .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    border-top: 1px solid var(--border-color);
+    padding-top: 0.8rem;
+    margin-top: auto;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+}
+
+.card-project .card-date {
+    color: var(--text-muted);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    font-family: var(--font-mono);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.card-project .card-tags {
+    display: flex;
+    gap: 0.35rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    margin-left: auto;
+}
+
+.tag-pill {
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-muted);
+    padding: 0.18rem 0.5rem;
+    border-radius: 3px;
+    font-size: 0.72rem;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    transition: border-color var(--transition-smooth), 
+                color var(--transition-smooth), 
+                background-color var(--transition-smooth);
+}
+
+.card-project:hover .tag-pill {
+    border-color: var(--accent-secondary-bg);
+    color: var(--accent-secondary);
+    background: rgba(45, 212, 191, 0.05);
+}

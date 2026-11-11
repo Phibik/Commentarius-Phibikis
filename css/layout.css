@@ -1,0 +1,67 @@
+.main-container,
+.project-container {
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem;
+    flex: 1;
+}
+
+.section-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 1.25rem;
+    letter-spacing: -0.02em;
+}
+
+.projects-grid,
+#projects-grid,
+#proyectos-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.25rem;
+}
+
+.filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+    padding: 0.75rem 1rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+.filter-label {
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    font-family: var(--font-mono);
+    margin-right: 0.25rem;
+}
+
+.btn-filter {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    padding: 0.35rem 0.75rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.82rem;
+    font-family: var(--font-mono);
+    transition: border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.btn-filter:hover {
+    border-color: var(--border-highlight);
+    color: var(--text-main);
+}
+
+.btn-filter.active {
+    background-color: var(--accent-primary);
+    color: var(--bg-main);
+    border-color: var(--accent-primary);
+    font-weight: 600;
+}
