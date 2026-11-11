@@ -1,0 +1,30 @@
+:root {
+    /* Fondos (Estilo Hyprland Dark Slate) */
+    --bg-main: #0e1017;         /* Fondo general ultra limpio */
+    --bg-surface: #151823;      /* Tarjetas y paneles */
+    --bg-surface-hover: #1c202e;/* Hover suave en tarjetas */
+    --border-color: #262b3d;    /* Bordes finos de 1px */
+    --border-highlight: #3b425b;/* Borde activo o hover */
+
+    /* Tipografía */
+    --text-main: #e2e8f0;       /* Texto principal (Blanco roto cómodo) */
+    --text-muted: #8b95b1;      /* Metadatos y textos secundarios */
+    --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+    /* Acentos e Identidad */
+    --accent-gold: #f59e0b;     /* Amarillo/Ámbar: Marca, activos, fechas */
+    --accent-gold-glow: rgba(245, 158, 11, 0.15);
+
+    /* Clases de Proyecto */
+    --accent-opus: #38bdf8;      /* Azul Cobalto/Cian: Publicación final */
+    --accent-opus-bg: rgba(56, 189, 248, 0.1);
+    
+    --accent-adumbratio: #fb923c;/* Naranja/Cálido: Borrador / WIP */
+    --accent-adumbratio-bg: rgba(251, 146, 60, 0.1);
+
+    /* Transiciones estilo Hyprland (Rápidas y fluidas) */
+    --ease-hypr: cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-fast: 150ms var(--ease-hypr);
+    --transition-smooth: 250ms var(--ease-hypr);
+}

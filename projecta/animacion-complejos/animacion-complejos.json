@@ -1,0 +1,20 @@
+{
+	"nombre":	"Animación de Funciones Complejas 5D",
+	"version":	"1.0",
+	"clase":	"opus",
+	"tipo":		"video",
+	"tags":		["Matemáticas"],
+	"importancia":	1,
+
+	"enlace": "https://www.youtube.com/watch?v=XrGXqy57dy0",
+	
+	"sinopsis": 	"Apuntes tomados durante el primer año de carrera en la UAB. Contiene introducción a los elementos pasivos básicos, leyes de Kirchhoff, métodos, teoremas y circuitos transitorios con condensadores y bobinas.",
+
+	"versiones": [
+		{
+			"numero": "1.0",
+			"fecha": "2022.12.30",
+			"comentario": ""
+		}
+	]
+}

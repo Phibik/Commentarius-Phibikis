@@ -1,0 +1,20 @@
+{
+	"nombre":	"Blackjack Terminal",
+	"version":	"1.0",
+	"clase":	"opus",
+	"tipo":		"github",
+	"tags":		["Programación"],
+	"importancia":	2,
+
+	"enlace": "https://github.com/Phibik/Blackjack-Terminal",
+	
+	"sinopsis": 	"El juego blackjack programado en python con el objetivo de ser simplemente ejecutado en la terminal con una interfaz limpia y pulida.",
+
+	"versiones": [
+		{
+			"numero": "1.0",
+			"fecha": "2026.02.18",
+			"comentario": ""
+		}
+	]
+}
