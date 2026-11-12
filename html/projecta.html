@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>Opera (Proyectos) — Commentarius Phibikis</title>
+    <title>Projecta Phibikis</title>
 
     <link rel="stylesheet" href="../css/variables.css">
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/projecta.css">
     <link rel="stylesheet" href="../css/tarjeta-proyecto.css">
     <link rel="stylesheet" href="../css/tarjeta-log.css">
 </head>
@@ -20,56 +21,66 @@
             <a href="../index.html" class="brand">Commentarius Phibikis</a>
             <nav class="nav-links">
                 <a href="diarium.html">Diarium</a>
-                <a href="projecta.html" class="active">Opera</a>
+                <a href="projecta.html" class="active">Projecta</a>
             </nav>
         </div>
     </header>
 
-    <main class="project-container" style="padding-top: 3rem; max-width: 1000px; margin: 0 auto; padding-left: 1.5rem; padding-right: 1.5rem;">
+    <main class="project-container">
         
-        <div style="margin-bottom: 2rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1.5rem;">
+        <div class="header-filters-wrapper">
             
-            <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
-                <div>
-                    <h1 style="font-size: 2.2rem; margin-bottom: 0.3rem; color: var(--text-main);">Opera Omnia</h1>
-                    <p style="color: var(--text-muted); font-size: 0.95rem;">Catálogo maestro de publicaciones, borradores y contenido audiovisual.</p>
+            <div class="header-top-row">
+                <div class="header-titles">
+                    <h1 class="page-title">Projecta</h1>
+                    <p class="page-subtitle">Catálogo de proyectos, publicaciones y borradores.</p>
                 </div>
 
-                <!-- Barra de Filtros de 3 Ejes -->
-                <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
-                    <div>
-                        <label style="display: block; font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-mono); margin-bottom: 0.3rem; letter-spacing: 0.05em;">ORDEN</label>
-                        <select id="filtro-orden" style="background: var(--surface-color); color: var(--text-main); border: 1px solid var(--border-color); padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.85rem;">
-                            <option value="importancia">Importancia Decimal</option>
-                            <option value="recientes">Más Recientes</option>
-                            <option value="alfabetico">Alfabético</option>
-                        </select>
+                <!-- Barra de Filtros Híbrida y Minimalista -->
+                <div class="filters-group">
+                    
+                    <!-- ORDEN (Segmentado) -->
+                    <div class="segmented-control">
+                        <input type="radio" name="filtro-orden" id="ord-imp" value="importancia" checked>
+                        <label for="ord-imp">Importancia</label>
+
+                        <input type="radio" name="filtro-orden" id="ord-rec" value="recientes">
+                        <label for="ord-rec">Recientes</label>
                     </div>
 
-                    <div>
-                        <label style="display: block; font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-mono); margin-bottom: 0.3rem; letter-spacing: 0.05em;">CLASE (MADUREZ)</label>
-                        <select id="filtro-clase" style="background: var(--surface-color); color: var(--text-main); border: 1px solid var(--border-color); padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.85rem;">
-                            <option value="todos">Todas</option>
-                            <option value="opus">Opus (Obras finalizadas)</option>
-                            <option value="adumbratio">Adumbratio (Borradores/Notas)</option>
-                        </select>
+                    <!-- CLASE (Segmentado con colores) -->
+                    <div class="segmented-control">
+                        <input type="radio" name="filtro-clase" id="cla-todas" value="todos" checked>
+                        <label for="cla-todas">Todas</label>
+
+                        <input type="radio" name="filtro-clase" id="cla-opus" value="opus">
+                        <label for="cla-opus" class="label-opus">Opus</label>
+
+                        <input type="radio" name="filtro-clase" id="cla-adum" value="adumbratio">
+                        <label for="cla-adum" class="label-adumbratio">Adumbratio</label>
                     </div>
 
-                    <div>
-                        <label style="display: block; font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-mono); margin-bottom: 0.3rem; letter-spacing: 0.05em;">FORMATO</label>
-                        <select id="filtro-formato" style="background: var(--surface-color); color: var(--text-main); border: 1px solid var(--border-color); padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.85rem;">
-                            <option value="todos">Todos</option>
-                            <option value="pdf">PDF / Documento</option>
-                            <option value="video">Vídeo</option>
-                        </select>
-                    </div>
+                    <!-- FORMATO (Desplegable Dinámico) -->
+                    <!-- El contenido se inyectará desde JS -->
+                    <select id="filtro-formato" class="modern-select">
+                        <option value="todos">Formato: Todos</option>
+                    </select>
+
+                    <!-- BOTÓN RESET -->
+                    <button type="button" id="btn-reset-filtros" class="btn-reset" title="Restablecer filtros">
+                        <!-- Icono SVG de recarga (Lucide Icons) -->
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                            <path d="M3 3v5h5"/>
+                        </svg>
+                    </button>
                 </div>
+
             </div>
 
             <!-- Botones de Tags / Etiquetas (Pills) -->
-            <div id="wrapper-tags">
-                <label style="display: block; font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-mono); margin-bottom: 0.5rem; letter-spacing: 0.05em;">FILTRAR POR ETIQUETAS</label>
-                <div id="contenedor-tags" style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+            <div id="wrapper-tags" class="tags-filter-wrapper">
+                <div id="contenedor-tags" class="tags-container">
                     <!-- Inyectado dinámicamente -->
                 </div>
             </div>
@@ -77,8 +88,8 @@
         </div>
 
         <!-- Rejilla de Proyectos -->
-        <div id="proyecta-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 4rem;">
-            <p style="color: var(--text-muted);">Cargando catálogo de proyectos...</p>
+        <div id="proyecta-grid" class="grid-proyectos">
+            <p class="loading-text">Cargando catálogo de proyectos...</p>
         </div>
 
     </main>

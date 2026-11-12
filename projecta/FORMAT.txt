@@ -1,3 +1,8 @@
+Si hi ha nous "tipo" en filtro-proyectos.js afegir format visual
+if(fmt === 'pdf') nombreFmt = 'PDF';
+if(fmt === 'github') nombreFmt = 'GitHub';
+if(fmt === 'video') nombreFmt = 'Vídeo';
+
 FORMAT projecta.json
 [
 	"tachy",

@@ -21,7 +21,7 @@
     will-change: transform, opacity, translate;
 
     /* Entrada escalonada fluida */
-    animation: cardEntrance 1250ms var(--ease-hypr) calc(var(--card-index, 0) * 100ms) both;
+    animation: cardEntrance 1250ms var(--ease-hypr) both;
 
     /* Transición suave y continua para evitar parpadeos al entrar/salir */
     transition: transform 300ms var(--ease-hypr);
@@ -221,6 +221,13 @@
     color: var(--text-muted);
     line-height: 1.55;
     margin: 0;
+    
+    /* Justificado de texto limpio */
+    text-align: justify;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+    
+    /* Truncado a 3 líneas */
     display: -webkit-box;
     -webkit-line-clamp: 3;
     line-clamp: 3;
@@ -229,15 +236,15 @@
 }
 
 /* ==========================================================================
-   FOOTER: FECHA Y ETIQUETAS RESPONSIVAS
+   FOOTER: FECHA Y ETIQUETAS (Grid Compacto y Simétrico Definitivo)
    ========================================================================== */
 
 .card-project .card-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 0.75rem;
-    flex-wrap: wrap;
+    gap: 1rem;
+    
     border-top: 1px solid var(--border-color);
     padding-top: 0.8rem;
     margin-top: auto;
@@ -254,12 +261,17 @@
     flex-shrink: 0;
 }
 
+/* Contenedor Grid limpio y acotado a la derecha */
 .card-project .card-tags {
     display: flex;
-    gap: 0.35rem;
     flex-wrap: wrap;
     justify-content: flex-end;
-    margin-left: auto;
+    align-items: center;
+    gap: 0.35rem;
+    
+    /* Limitamos el ancho máximo del bloque de tags para forzar simetría 
+       y evitar que invadan el centro de la tarjeta */
+    max-width: 65%; 
 }
 
 .tag-pill {
@@ -270,6 +282,12 @@
     font-size: 0.72rem;
     border: 1px solid transparent;
     white-space: nowrap;
+    
+    /* Evita que una etiqueta exageradamente larga rompa la simetría */
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
     transition: border-color var(--transition-smooth), 
                 color var(--transition-smooth), 
                 background-color var(--transition-smooth);

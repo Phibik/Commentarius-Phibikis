@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const diariumLogs = diariumRes.ok ? await diariumRes.json() : [];
 
         // 1. Metadatos globales
-        document.getElementById('page-title').textContent = `${meta.nombre} — Commentarius Phibikis`;
+        document.getElementById('page-title').textContent = `${meta.nombre}`;
         
         const titleElem = document.getElementById('proj-titulo-principal');
         if (titleElem) titleElem.textContent = meta.nombre;

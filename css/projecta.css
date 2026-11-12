@@ -1,0 +1,265 @@
+/* ==========================================================================
+   CABECERA Y FILTROS DE OPERA OMNIA
+   ========================================================================== */
+
+.header-filters-wrapper {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1.5rem;
+}
+
+.header-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.header-titles .page-title {
+    font-size: 2.2rem;
+    margin-bottom: 0.3rem;
+    color: var(--text-main);
+}
+
+.header-titles .page-subtitle {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+/* ==========================================================================
+   CONTROLES SEGMENTADOS (Interruptores animados)
+   ========================================================================== */
+
+.filters-group {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.segmented-control {
+    display: inline-flex;
+    background: rgba(22, 22, 26, 0.6);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 0.25rem;
+    gap: 0.2rem; /* Espacio extra entre los botones */
+}
+
+.segmented-control input[type="radio"] {
+    display: none;
+}
+
+.segmented-control label {
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    padding: 0.35rem 0.8rem;
+    border-radius: 5px;
+    cursor: pointer;
+    user-select: none;
+    
+    /* El borde transparente PREVIENE EL TIRÓN, mantiene el espacio reservado */
+    border: 1px solid transparent; 
+    
+    /* Animación súper fluida para color, sombra y tamaño */
+    transition: all 250ms var(--ease-hypr, ease);
+}
+
+.segmented-control label:hover {
+    color: var(--text-main);
+}
+
+/* Efecto de hundimiento táctil al hacer clic */
+.segmented-control label:active {
+    transform: scale(0.92);
+}
+
+/* Estado Activo Genérico */
+.segmented-control input[type="radio"]:checked + label {
+    background: var(--border-highlight);
+    color: var(--text-main);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    border-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Colores Temáticos para Clase */
+.segmented-control input[type="radio"]#cla-opus:checked + label.label-opus {
+    background: var(--color-opus-bg);
+    color: var(--color-opus);
+    border-color: rgba(56, 189, 248, 0.25);
+    box-shadow: 0 4px 12px -2px rgba(56, 189, 248, 0.2);
+}
+
+.segmented-control input[type="radio"]#cla-adum:checked + label.label-adumbratio {
+    background: var(--color-adumbratio-bg);
+    color: var(--color-adumbratio);
+    border-color: rgba(251, 146, 60, 0.25);
+    box-shadow: 0 4px 12px -2px rgba(251, 146, 60, 0.2);
+}
+
+/* ==========================================================================
+   DESPLEGABLE MODERNO (Formato - Escalable)
+   ========================================================================== */
+
+.modern-select {
+    appearance: none;
+    -webkit-appearance: none;
+    
+    background-color: rgba(22, 22, 26, 0.6);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    
+    color: var(--text-main);
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 500;
+    
+    padding: 0.55rem 2.2rem 0.55rem 1rem;
+    cursor: pointer;
+    outline: none;
+    
+    /* Animación de interacción */
+    transition: all 250ms var(--ease-hypr, ease);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    
+    /* Flecha personalizada SVG en gris */
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3 5L6 8L9 5' stroke='%238b92a4' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.8rem center;
+}
+
+.modern-select:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+    background-color: rgba(32, 32, 37, 0.8);
+}
+
+/* Estado Focus (Anillo de luz amarillo y flecha amarilla) */
+.modern-select:focus {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.15);
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3 5L6 8L9 5' stroke='%23facc15' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+/* Opciones nativas del sistema */
+.modern-select option {
+    background-color: var(--bg-surface);
+    color: var(--text-main);
+}
+
+.btn-reset {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    
+    background: rgba(22, 22, 26, 0.6);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    
+    color: var(--text-muted);
+    cursor: pointer;
+    outline: none;
+    transition: all 800ms var(--ease-hypr, ease);
+}
+
+.btn-reset:hover {
+    color: var(--text-main);
+    border-color: var(--text-muted);
+    background: rgba(32, 32, 37, 0.8);
+}
+
+/* Estado normal del SVG: Aquí se define cómo vuelve a su posición original */
+.btn-reset svg {
+    transform: rotate(0deg);
+    /* Alargamos el tiempo a 600ms para que sea fluido */
+    transition: transform 1200ms var(--ease-hypr, ease-out);
+}
+
+/* Al hacer hover, da una vuelta completa (360º) hacia la derecha */
+.btn-reset:hover svg {
+    transform: rotate(-360deg);
+}
+
+/* Hundimiento al hacer clic */
+.btn-reset:active {
+    transform: scale(0.9);
+}
+
+/* Filtros de Etiquetas (Tags) */
+.tags-filter-wrapper {
+    margin-top: 1rem;
+}
+
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+/* Rejilla Principal de Proyectos */
+.grid-proyectos {
+    display: grid;
+    /* Usamos 340px en lugar de 300px para que las tarjetas sean más anchas */
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); 
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+}
+
+.loading-text {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* ==========================================================================
+   FILTROS DE ETIQUETAS (TAGS)
+   ========================================================================== */
+
+/* Botones de filtro inactivos por defecto */
+.btn-tag {
+    background: var(--surface-color);
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+    padding: 0.3rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    font-family: var(--font-mono);
+    transition: all 150ms var(--ease-hypr, ease);
+    outline: none;
+}
+
+.btn-tag:hover {
+    border-color: var(--text-muted);
+}
+
+/* Botón presionado (Filtro Activo) */
+.btn-tag.active {
+    background: var(--text-main);
+    color: var(--bg-main);
+    border-color: var(--text-main);
+}
+
+/* ==========================================================================
+   MENSAJES DE ESTADO DEL CATÁLOGO
+   ========================================================================== */
+
+.error-msg {
+    color: #ef4444; /* Rojo error */
+    font-weight: 500;
+}
+
+.empty-msg {
+    color: var(--text-muted);
+    grid-column: 1 / -1; /* Obliga a que ocupe todo el ancho de la rejilla */
+    text-align: center;
+    padding: 2rem;
+}

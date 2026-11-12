@@ -1,10 +1,9 @@
 async function initCatalogo() {
     const grid = document.getElementById('proyecta-grid');
-    const selectOrden = document.getElementById('filtro-orden');
-    const selectClase = document.getElementById('filtro-clase');
     const selectFormato = document.getElementById('filtro-formato');
     const contenedorTags = document.getElementById('contenedor-tags');
     const wrapperTags = document.getElementById('wrapper-tags');
+    const btnReset = document.getElementById('btn-reset-filtros');
 
     if (!grid) return;
 
@@ -14,39 +13,108 @@ async function initCatalogo() {
     try {
         proyectosData = await window.cargarProyectos('../');
         
+        generarSelectFormatos(); // ¡Nuevo! Genera el desplegable dinámicamente
         generarBotonesTags();
         renderProyectos();
 
-        if (selectOrden) selectOrden.addEventListener('change', renderProyectos);
-        if (selectClase) selectClase.addEventListener('change', renderProyectos);
+        // Listeners - Radios
+        const radiosFiltro = document.querySelectorAll('.segmented-control input[type="radio"]');
+        radiosFiltro.forEach(radio => radio.addEventListener('change', renderProyectos));
+
+        // Listeners - Select
         if (selectFormato) selectFormato.addEventListener('change', renderProyectos);
+
+        // Listener - Reset
+        if (btnReset) {
+            btnReset.addEventListener('click', resetearFiltros);
+        }
 
     } catch (e) {
         console.error("Error cargando el catálogo:", e);
-        grid.innerHTML = `<p style="color: #ef4444;">No se pudo cargar el catálogo de proyectos.</p>`;
+        grid.innerHTML = `<p class="error-msg">No se pudo cargar el catálogo de proyectos.</p>`;
     }
+
+    // ----------------------------------------------------------------------
+    // NUEVA FUNCIÓN: Extrae los formatos/tipos dinámicamente
+    // ----------------------------------------------------------------------
+    function generarSelectFormatos() {
+        if (!selectFormato) return;
+        
+        const formatosUnicos = new Set();
+        
+        proyectosData.forEach(p => {
+            const fmt = (p.formato || p.tipo || 'pdf').toLowerCase().trim();
+            formatosUnicos.add(fmt);
+        });
+
+        // Siempre la primera opción será "Todos"
+        const optionsHTML = ['<option value="todos">Formato: Todos</option>'];
+        
+        // Ordenamos alfabéticamente y capitalizamos la primera letra
+        Array.from(formatosUnicos).sort().forEach(fmt => {
+            let nombreFmt = fmt.charAt(0).toUpperCase() + fmt.slice(1);
+            // Pequeña corrección de estilo para nombres conocidos
+            if(fmt === 'pdf') nombreFmt = 'PDF';
+            if(fmt === 'github') nombreFmt = 'GitHub';
+            if(fmt === 'video') nombreFmt = 'Vídeo';
+
+            optionsHTML.push(`<option value="${fmt}">Formato: ${nombreFmt}</option>`);
+        });
+
+        selectFormato.innerHTML = optionsHTML.join('');
+    }
+
+    // ----------------------------------------------------------------------
+    // FUNCIÓN RESET: Restaura la vista inicial
+    // ----------------------------------------------------------------------
+    function resetearFiltros() {
+        // 1. Restaurar Radios a sus valores por defecto
+        document.getElementById('ord-imp').checked = true;
+        document.getElementById('cla-todas').checked = true;
+        
+        // 2. Restaurar Select
+        if (selectFormato) selectFormato.value = 'todos';
+        
+        // 3. Limpiar Tags
+        tagsSeleccionadas.clear();
+        if (contenedorTags) {
+            contenedorTags.querySelectorAll('.btn-tag').forEach(btn => {
+                btn.classList.remove('active');
+            });
+        }
+        
+        // 4. Volver a pintar
+        renderProyectos();
+    }
+
+    // ... A PARTIR DE AQUÍ TODO SIGUE IGUAL (generarBotonesTags y renderProyectos) ...
 
     function generarBotonesTags() {
         if (!contenedorTags) return;
-
-        const todastags = new Set();
+        const tagMap = new Map();
         proyectosData.forEach(p => {
             if (Array.isArray(p.tags)) {
-                p.tags.forEach(t => todastags.add(t.toLowerCase().trim()));
+                p.tags.forEach(t => {
+                    const originalTag = t.trim();
+                    const key = originalTag.toLowerCase();
+                    if (!tagMap.has(key)) tagMap.set(key, originalTag);
+                });
             }
         });
 
-        if (todastags.size === 0) {
+        if (tagMap.size === 0) {
             if (wrapperTags) wrapperTags.style.display = 'none';
             return;
         }
 
         if (wrapperTags) wrapperTags.style.display = 'block';
 
-        contenedorTags.innerHTML = Array.from(todastags).map(tag => `
-            <button type="button" class="btn-tag" data-tag="${tag}" style="background: var(--surface-color); color: var(--text-muted); border: 1px solid var(--border-color); padding: 0.3rem 0.75rem; border-radius: 20px; font-size: 0.8rem; cursor: pointer; font-family: var(--font-mono); transition: all 0.15s;">
-                #${tag}
-            </button>
+        const tagsOrdenados = Array.from(tagMap.values()).sort((a, b) => 
+            a.localeCompare(b, 'es', { sensitivity: 'base' })
+        );
+
+        contenedorTags.innerHTML = tagsOrdenados.map(tag => `
+            <button type="button" class="btn-tag" data-tag="${tag}">${tag}</button>
         `).join('');
 
         contenedorTags.querySelectorAll('.btn-tag').forEach(btn => {
@@ -54,14 +122,10 @@ async function initCatalogo() {
                 const tag = btn.getAttribute('data-tag');
                 if (tagsSeleccionadas.has(tag)) {
                     tagsSeleccionadas.delete(tag);
-                    btn.style.background = 'var(--surface-color)';
-                    btn.style.color = 'var(--text-muted)';
-                    btn.style.borderColor = 'var(--border-color)';
+                    btn.classList.remove('active');
                 } else {
                     tagsSeleccionadas.add(tag);
-                    btn.style.background = 'var(--text-main)';
-                    btn.style.color = 'var(--bg-color, #111)';
-                    btn.style.borderColor = 'var(--text-main)';
+                    btn.classList.add('active');
                 }
                 renderProyectos();
             });
@@ -71,54 +135,43 @@ async function initCatalogo() {
     function renderProyectos() {
         let lista = [...proyectosData];
 
-        // 1. Filtro por Clase (Opus vs Adumbratio)
-        const claseSel = selectClase ? selectClase.value : 'todos';
+        const radioClase = document.querySelector('input[name="filtro-clase"]:checked');
+        const claseSel = radioClase ? radioClase.value : 'todos';
+        
+        const radioOrden = document.querySelector('input[name="filtro-orden"]:checked');
+        const ordenSel = radioOrden ? radioOrden.value : 'importancia';
+        
+        const formatoSel = selectFormato ? selectFormato.value : 'todos';
+
         if (claseSel !== 'todos') {
             lista = lista.filter(p => (p.clase || '').toLowerCase() === claseSel);
         }
 
-        // 2. Filtro por Formato (PDF vs Vídeo)
-        const formatoSel = selectFormato ? selectFormato.value : 'todos';
         if (formatoSel !== 'todos') {
             lista = lista.filter(p => (p.formato || p.tipo || 'pdf').toLowerCase() === formatoSel);
         }
 
-        // 3. Coincidencia de Tags (AND prioritario -> OR)
-        const arrTags = Array.from(tagsSeleccionadas);
-        if (arrTags.length > 0) {
-            lista = lista
-                .map(p => {
-                    const pTags = Array.isArray(p.tags) ? p.tags.map(t => t.toLowerCase().trim()) : [];
-                    const coinc = arrTags.filter(t => pTags.includes(t)).length;
-                    return { ...p, _coincidencias: coinc };
-                })
-                .filter(p => p._coincidencias > 0);
-        } else {
-            lista = lista.map(p => ({ ...p, _coincidencias: 0 }));
+        if (tagsSeleccionadas.size > 0) {
+            const arrTagsLower = Array.from(tagsSeleccionadas).map(t => t.toLowerCase());
+            lista = lista.filter(p => {
+                const pTags = Array.isArray(p.tags) ? p.tags.map(t => t.toLowerCase().trim()) : [];
+                return arrTagsLower.every(t => pTags.includes(t));
+            });
         }
 
-        // 4. Ordenación
-        const ordenSel = selectOrden ? selectOrden.value : 'importancia';
-
         lista.sort((a, b) => {
-            if (arrTags.length > 0 && b._coincidencias !== a._coincidencias) {
-                return b._coincidencias - a._coincidencias;
-            }
-
             if (ordenSel === 'importancia') {
                 return (a.importancia ?? 99) - (b.importancia ?? 99);
             } else if (ordenSel === 'recientes') {
                 const fechaA = a.versiones?.[0]?.fecha || '0000-00-00';
                 const fechaB = b.versiones?.[0]?.fecha || '0000-00-00';
                 return fechaB.localeCompare(fechaA);
-            } else if (ordenSel === 'alfabetico') {
-                return (a.nombre || '').localeCompare(b.nombre || '');
             }
             return 0;
         });
 
         if (lista.length === 0) {
-            grid.innerHTML = `<p style="color: var(--text-muted); grid-column: 1/-1; text-align: center; padding: 2rem;">No hay proyectos que coincidan con estos filtros.</p>`;
+            grid.innerHTML = `<p class="empty-msg">No hay proyectos que coincidan con estos filtros.</p>`;
             return;
         }
 
