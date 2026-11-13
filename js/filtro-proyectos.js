@@ -10,53 +10,92 @@ async function initCatalogo() {
     let proyectosData = [];
     let tagsSeleccionadas = new Set();
 
+    const cardObserver = new ResizeObserver(entries => {
+        for (const entry of entries) {
+            ajustarLineasSinopsis(entry.target);
+        }
+    });
+
+    function ajustarLineasSinopsis(card) {
+        const sinopsis = card.querySelector('.card-sinopsis');
+        if (!sinopsis) return;
+
+        const csCard = getComputedStyle(card);
+        const padV = parseFloat(csCard.paddingTop) + parseFloat(csCard.paddingBottom);
+        const gap = parseFloat(csCard.rowGap || csCard.gap) || 0;
+        const innerHeight = card.clientHeight - padV;
+
+        let otrosHijos = 0;
+        let visibles = 0;
+        for (const child of card.children) {
+            if (getComputedStyle(child).display === 'none') continue;
+            visibles++;
+            if (child !== sinopsis) {
+                otrosHijos += child.offsetHeight;
+            }
+        }
+
+        const disponible = innerHeight - otrosHijos - gap * Math.max(0, visibles - 1);
+        const lineHeight = parseFloat(getComputedStyle(sinopsis).lineHeight);
+        if (lineHeight > 0) {
+            const lines = Math.max(3, Math.floor((disponible + 1) / lineHeight));
+            sinopsis.style.setProperty('--sinopsis-lines', lines);
+        }
+    }
+
+    function observarTarjetas() {
+        cardObserver.disconnect();
+        grid.querySelectorAll('.card-project').forEach(card => {
+            ajustarLineasSinopsis(card);
+            cardObserver.observe(card);
+        });
+    }
+
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => {
+            grid.querySelectorAll('.card-project').forEach(ajustarLineasSinopsis);
+        });
+    }
+
     try {
         proyectosData = await window.cargarProyectos('../');
+
+        proyectosData.forEach(p => {
+            if (Array.isArray(p.tags)) {
+                p.tags.sort((a, b) => a.localeCompare(b, 'es', { sensitivity: 'base' }));
+            }
+        });
         
-        generarSelectFormatos(); // ¡Nuevo! Genera el desplegable dinámicamente
+        generarSelectFormatos();
         generarBotonesTags();
         renderProyectos();
 
-        // Listeners - Radios
         const radiosFiltro = document.querySelectorAll('.segmented-control input[type="radio"]');
         radiosFiltro.forEach(radio => radio.addEventListener('change', renderProyectos));
 
-        // Listeners - Select
         if (selectFormato) selectFormato.addEventListener('change', renderProyectos);
-
-        // Listener - Reset
-        if (btnReset) {
-            btnReset.addEventListener('click', resetearFiltros);
-        }
+        if (btnReset) btnReset.addEventListener('click', resetearFiltros);
 
     } catch (e) {
         console.error("Error cargando el catálogo:", e);
         grid.innerHTML = `<p class="error-msg">No se pudo cargar el catálogo de proyectos.</p>`;
     }
 
-    // ----------------------------------------------------------------------
-    // NUEVA FUNCIÓN: Extrae los formatos/tipos dinámicamente
-    // ----------------------------------------------------------------------
     function generarSelectFormatos() {
         if (!selectFormato) return;
         
         const formatosUnicos = new Set();
-        
         proyectosData.forEach(p => {
             const fmt = (p.formato || p.tipo || 'pdf').toLowerCase().trim();
             formatosUnicos.add(fmt);
         });
 
-        // Siempre la primera opción será "Todos"
         const optionsHTML = ['<option value="todos">Formato: Todos</option>'];
-        
-        // Ordenamos alfabéticamente y capitalizamos la primera letra
         Array.from(formatosUnicos).sort().forEach(fmt => {
             let nombreFmt = fmt.charAt(0).toUpperCase() + fmt.slice(1);
-            // Pequeña corrección de estilo para nombres conocidos
-            if(fmt === 'pdf') nombreFmt = 'PDF';
-            if(fmt === 'github') nombreFmt = 'GitHub';
-            if(fmt === 'video') nombreFmt = 'Vídeo';
+            if (fmt === 'pdf') nombreFmt = 'PDF';
+            if (fmt === 'github') nombreFmt = 'GitHub';
+            if (fmt === 'video') nombreFmt = 'Vídeo';
 
             optionsHTML.push(`<option value="${fmt}">Formato: ${nombreFmt}</option>`);
         });
@@ -64,18 +103,11 @@ async function initCatalogo() {
         selectFormato.innerHTML = optionsHTML.join('');
     }
 
-    // ----------------------------------------------------------------------
-    // FUNCIÓN RESET: Restaura la vista inicial
-    // ----------------------------------------------------------------------
     function resetearFiltros() {
-        // 1. Restaurar Radios a sus valores por defecto
         document.getElementById('ord-imp').checked = true;
         document.getElementById('cla-todas').checked = true;
-        
-        // 2. Restaurar Select
         if (selectFormato) selectFormato.value = 'todos';
         
-        // 3. Limpiar Tags
         tagsSeleccionadas.clear();
         if (contenedorTags) {
             contenedorTags.querySelectorAll('.btn-tag').forEach(btn => {
@@ -83,11 +115,8 @@ async function initCatalogo() {
             });
         }
         
-        // 4. Volver a pintar
         renderProyectos();
     }
-
-    // ... A PARTIR DE AQUÍ TODO SIGUE IGUAL (generarBotonesTags y renderProyectos) ...
 
     function generarBotonesTags() {
         if (!contenedorTags) return;
@@ -176,6 +205,7 @@ async function initCatalogo() {
         }
 
         grid.innerHTML = lista.map(p => window.generarTarjetaHTML(p, '')).join('');
+        observarTarjetas();
     }
 }
 

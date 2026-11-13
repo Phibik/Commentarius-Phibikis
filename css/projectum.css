@@ -1,20 +1,121 @@
-.project-header {
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 1.5rem;
-    margin-bottom: 2rem;
+/* --------------------------------------------------------------------------
+   1. LAYOUT PRINCIPAL Y UTILIDADES
+   -------------------------------------------------------------------------- */
+.project-container {
+    padding-top: 2rem;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.error-container {
+    padding: 3rem;
+    text-align: center;
+    color: #ef4444;
+}
+
+.error-container p {
+    color: var(--text-muted);
+}
+
+.error-container .btn-icon {
+    margin-top: 1rem;
+}
+
+/* --------------------------------------------------------------------------
+   2. CABECERA Y METADATOS
+   -------------------------------------------------------------------------- */
+.sketch-header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.btn-icon {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    text-decoration: none;
+    color: var(--text-main);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.btn-icon:hover {
+    background: var(--bg-surface-hover);
+    border-color: var(--border-highlight);
+}
+
+.sketch-meta-info {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.sketch-meta-info .separator {
+    margin: 0 0.5rem;
+}
+
+.version-highlight {
+    color: var(--text-main);
 }
 
 .project-title-main {
-    font-size: 2.1rem;
-    font-weight: 700;
+    font-size: 2.4rem;
+    margin-bottom: 0.5rem;
     color: var(--text-main);
-    line-height: 1.2;
-    margin-bottom: 0.75rem;
+    font-weight: 700;
 }
 
-.tabs-nav {
+/* --------------------------------------------------------------------------
+   3. BARRA DE ACCIONES Y BADGES
+   -------------------------------------------------------------------------- */
+.sketch-actions-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.badge-group {
     display: flex;
     gap: 0.5rem;
+    align-items: center;
+}
+
+/* Base del badge, las variaciones de color (.opus, .adumbratio) se heredan de base.css o tarjeta-proyecto.css */
+.badge {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+}
+
+.action-buttons-group {
+    display: flex;
+    gap: 0.8rem;
+}
+
+/* --------------------------------------------------------------------------
+   4. NAVEGACIÓN DE PESTAÑAS
+   -------------------------------------------------------------------------- */
+.tabs-nav {
+    display: flex;
+    gap: 1rem;
     border-bottom: 1px solid var(--border-color);
     margin-bottom: 2rem;
 }
@@ -22,11 +123,9 @@
 .tab-btn {
     background: none;
     border: none;
+    padding: 0.6rem 1rem;
     color: var(--text-muted);
-    padding: 0.6rem 1.1rem;
-    font-size: 0.9rem;
     font-family: var(--font-mono);
-    font-weight: 500;
     cursor: pointer;
     border-bottom: 2px solid transparent;
     transition: color var(--transition-fast), border-color var(--transition-fast);
@@ -38,7 +137,7 @@
 
 .tab-btn.active {
     color: var(--text-main);
-    border-bottom-color: var(--accent-primary);
+    border-bottom-color: var(--text-main);
 }
 
 .tab-content {
@@ -49,25 +148,167 @@
     display: block;
 }
 
-.pdf-wrapper {
-    width: 100%;
-    background-color: var(--bg-surface);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-.pdf-wrapper iframe {
-    display: block;
-    width: 100%;
-    height: 750px;
-    border: none;
-    background-color: var(--bg-main);
+/* --------------------------------------------------------------------------
+   5. LAYOUT DE LA BITÁCORA
+   -------------------------------------------------------------------------- */
+.bitacora-grid {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    align-items: start;
 }
 
 @media (max-width: 768px) {
-    #bitacora-container {
-        grid-template-columns: 1fr !important;
-        gap: 1.5rem !important;
+    .bitacora-grid {
+        grid-template-columns: 1fr;
     }
+}
+
+/* Componentes internos de la bitácora */
+.content-block {
+    margin-bottom: 1.5rem;
+}
+
+.content-block.border-top {
+    border-top: 1px solid var(--border-color);
+    padding-top: 1rem;
+}
+
+.section-subtitle {
+    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+
+.no-margin-top {
+    margin-top: 0;
+}
+
+.text-block {
+    color: var(--text-main);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.text-extended {
+    font-size: 0.95rem;
+}
+
+.demo-image {
+    width: 100%;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    margin-bottom: 0.4rem;
+}
+
+.demo-caption {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    margin: 0;
+}
+
+/* Columna Lateral (Versiones) */
+.sidebar-box {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    padding: 1.2rem;
+    border-radius: 8px;
+}
+
+.versions-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.version-item {
+    margin-bottom: 0.7rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px dashed var(--border-color);
+}
+
+.version-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.version-number {
+    color: var(--text-main);
+    font-size: 0.9rem;
+}
+
+.version-date {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+}
+
+.version-comment {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    display: block;
+    margin-top: 0.2rem;
+}
+
+.version-link {
+    color: var(--text-main);
+    text-decoration: none;
+    font-size: 0.8rem;
+    display: block;
+    margin-top: 0.2rem;
+}
+
+.version-link:hover {
+    color: var(--accent-primary);
+}
+
+/* --------------------------------------------------------------------------
+   6. LOGS DEL DIARIUM
+   -------------------------------------------------------------------------- */
+.logs-section {
+    border-top: 1px solid var(--border-color);
+    padding-top: 2rem;
+    margin-bottom: 3rem;
+}
+
+.empty-logs-msg {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* --------------------------------------------------------------------------
+   7. VISOR DEDICADO (PDF / Video)
+   -------------------------------------------------------------------------- */
+.pdf-wrapper {
+    width: 100%;
+}
+
+.pdf-iframe {
+    width: 100%;
+    height: 750px;
+    border: none;
+    background: var(--bg-surface);
+    border-radius: 8px;
+    display: block;
+}
+
+/* --------------------------------------------------------------------------
+   8. ESTILOS DE ERROR (Inyectados por JS)
+   -------------------------------------------------------------------------- */
+.error-title {
+    color: #ef4444; /* Rojo para alertas */
+    margin-bottom: 0.5rem;
+}
+
+.error-text {
+    color: var(--text-muted);
+}
+
+.btn-icon-margin {
+    margin-top: 1rem;
 }

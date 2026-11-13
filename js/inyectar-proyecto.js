@@ -4,8 +4,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     if (!projectId) {
         document.getElementById('project-container').innerHTML = `
-            <h2>Error: No se ha especificado ningún proyecto.</h2>
-            <a href="../index.html">← Volver al inicio</a>
+            <div class="error-container">
+                <h2>Error: No se ha especificado ningún proyecto.</h2>
+                <a href="../index.html" class="btn-icon">← Volver al inicio</a>
+            </div>
         `;
         return;
     }
@@ -43,6 +45,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const claseStr = (meta.clase || 'opus').toUpperCase();
             const tipoStr = (meta.formato || meta.tipo || 'pdf').toUpperCase();
             badgeElem.textContent = `${claseStr} • ${tipoStr}`;
+            badgeElem.className = `badge badge-type ${meta.clase ? meta.clase.toLowerCase() : 'opus'}`;
         }
 
         // 2. Descripción ampliada opcional
@@ -51,9 +54,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (descContainer) {
             if (meta.descripcion) {
                 if (descText) descText.textContent = meta.descripcion;
-                descContainer.style.display = 'block';
+                descContainer.classList.remove('hidden');
             } else {
-                descContainer.style.display = 'none';
+                descContainer.classList.add('hidden');
             }
         }
 
@@ -65,13 +68,13 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (meta.figura) {
                 if (figuraImg) figuraImg.src = `${folder}/${meta.figura}`;
                 if (figuraCaption) figuraCaption.textContent = meta.figura_caption || '';
-                figuraContainer.style.display = 'block';
+                figuraContainer.classList.remove('hidden');
             } else {
-                figuraContainer.style.display = 'none';
+                figuraContainer.classList.add('hidden');
             }
         }
 
-        // 4. Logs del Diarium (Renderizados con .log-card)
+        // 4. Logs del Diarium
         const projLogsList = document.getElementById('proj-logs-list');
         if (projLogsList) {
             const filteredLogs = diariumLogs.filter(log => log.proyecto === projectId);
@@ -85,7 +88,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     </div>
                 `).join('');
             } else {
-                projLogsList.innerHTML = `<p style="color: var(--text-muted); font-size: 0.9rem;">No hay registros de bitácora para este proyecto todavía.</p>`;
+                projLogsList.innerHTML = `<p class="empty-logs-msg">No hay registros de bitácora para este proyecto todavía.</p>`;
             }
         }
 
@@ -115,10 +118,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     } catch (e) {
         console.error("Error inyectando proyecto:", e);
         document.getElementById('project-container').innerHTML = `
-            <div style="padding: 3rem; text-align: center; color: #ef4444;">
-                <h2>Error al cargar el proyecto '${projectId}'</h2>
-                <p style="color: var(--text-muted);">Comprueba que existe <code>./projecta/${projectId}/${projectId}.json</code>.</p>
-                <a href="../index.html" class="btn-icon" style="margin-top: 1rem; display: inline-flex;">← Volver al inicio</a>
+            <div class="error-container">
+                <h2 class="error-title">Error al cargar el proyecto '${projectId}'</h2>
+                <p class="error-text">Comprueba que existe <code>./projecta/${projectId}/${projectId}.json</code>.</p>
+                <a href="../index.html" class="btn-icon btn-icon-margin">← Volver al inicio</a>
             </div>
         `;
     }
@@ -128,17 +131,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 function renderPdfProject(meta, folder, projectId) {
     const pdfPath = `${folder}/${projectId}-v${meta.version}.pdf`;
 
-    // Configurar Visor PDF
     const tabVisorBtn = document.querySelector('[data-tab="tab-latex"]');
     if (tabVisorBtn) {
         tabVisorBtn.textContent = "Visor PDF";
-        tabVisorBtn.style.display = "inline-block";
+        tabVisorBtn.classList.remove('hidden');
     }
 
     const iframeElem = document.getElementById('proj-pdf-iframe');
     if (iframeElem) iframeElem.src = pdfPath;
 
-    // Botones superiores
     const btnVerOnline = document.getElementById('btn-ver-online');
     if (btnVerOnline) {
         btnVerOnline.textContent = "Ver Online (PDF)";
@@ -148,24 +149,22 @@ function renderPdfProject(meta, folder, projectId) {
 
     const btnDownload = document.getElementById('btn-download-pdf-latest');
     if (btnDownload) {
-        btnDownload.style.display = 'inline-block';
+        btnDownload.classList.remove('hidden');
         btnDownload.textContent = "Descargar PDF";
         btnDownload.href = pdfPath;
     }
 
-    // Historial lateral
-    renderVersionesList(meta.versiones, (v) => `<a href="${folder}/${projectId}-v${v.numero}.pdf" target="_blank" style="color: var(--text-main); text-decoration: none; font-size: 0.8rem; display: block; margin-top: 0.2rem;">[Ver PDF]</a>`);
+    renderVersionesList(meta.versiones, (v) => `<a href="${folder}/${projectId}-v${v.numero}.pdf" target="_blank" class="version-link">[Ver PDF]</a>`);
 }
 
 
 function renderVideoProject(meta, folder, projectId) {
     const videoUrl = meta.enlace || meta.url || "#";
 
-    // Configurar Visor de Vídeo
     const tabVisorBtn = document.querySelector('[data-tab="tab-latex"]');
     if (tabVisorBtn) {
         tabVisorBtn.textContent = "Vídeo";
-        tabVisorBtn.style.display = "inline-block";
+        tabVisorBtn.classList.remove('hidden');
     }
 
     const iframeElem = document.getElementById('proj-pdf-iframe');
@@ -177,7 +176,6 @@ function renderVideoProject(meta, folder, projectId) {
         iframeElem.src = embedUrl;
     }
 
-    // Botones superiores
     const btnVerOnline = document.getElementById('btn-ver-online');
     if (btnVerOnline) {
         btnVerOnline.textContent = "Ver en YouTube ↗";
@@ -187,24 +185,21 @@ function renderVideoProject(meta, folder, projectId) {
 
     const btnDownload = document.getElementById('btn-download-pdf-latest');
     if (btnDownload) {
-        btnDownload.style.display = 'none';
+        btnDownload.classList.add('hidden');
     }
 
-    // Historial lateral
-    renderVersionesList(meta.versiones, (v) => v.enlace ? `<a href="${v.enlace}" target="_blank" style="color: var(--text-main); text-decoration: none; font-size: 0.8rem; display: block; margin-top: 0.2rem;">[Ver Vídeo]</a>` : '');
+    renderVersionesList(meta.versiones, (v) => v.enlace ? `<a href="${v.enlace}" target="_blank" class="version-link">[Ver Vídeo]</a>` : '');
 }
 
 
 function renderGithubProject(meta, folder, projectId) {
-    // Proyectos GitHub no tienen visor embebido: ocultamos la pestaña 2
     const tabVisorBtn = document.querySelector('[data-tab="tab-latex"]');
     if (tabVisorBtn) {
-        tabVisorBtn.style.display = 'none';
+        tabVisorBtn.classList.add('hidden');
     }
 
     const githubUrl = meta.enlace || meta.github || meta.url || `https://github.com/Phibik/${projectId}`;
 
-    // Botones superiores
     const btnVerOnline = document.getElementById('btn-ver-online');
     if (btnVerOnline) {
         btnVerOnline.textContent = "Abrir en GitHub ↗";
@@ -214,7 +209,7 @@ function renderGithubProject(meta, folder, projectId) {
 
     const btnDownload = document.getElementById('btn-download-pdf-latest');
     if (btnDownload) {
-        btnDownload.style.display = 'inline-block';
+        btnDownload.classList.remove('hidden');
         btnDownload.textContent = "Descargar .ZIP ⬇";
         const zipLocal = `${folder}/${projectId}-v${meta.version}.zip`;
         const zipRemote = meta.zip || `${githubUrl}/archive/refs/heads/main.zip`;
@@ -222,8 +217,7 @@ function renderGithubProject(meta, folder, projectId) {
         btnDownload.target = "_blank";
     }
 
-    // Historial lateral
-    renderVersionesList(meta.versiones, (v) => `<a href="${v.enlace || githubUrl}" target="_blank" style="color: var(--text-main); text-decoration: none; font-size: 0.8rem; display: block; margin-top: 0.2rem;">[Ver Código]</a>`);
+    renderVersionesList(meta.versiones, (v) => `<a href="${v.enlace || githubUrl}" target="_blank" class="version-link">[Ver Código]</a>`);
 }
 
 
@@ -231,12 +225,12 @@ function renderVersionesList(versiones, linkGenerator) {
     const versionesList = document.getElementById('proj-versiones-list');
     if (versionesList && versiones) {
         versionesList.innerHTML = versiones.map(v => `
-            <li style="margin-bottom: 0.7rem; padding-bottom: 0.5rem; border-bottom: 1px dashed var(--border-color);">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <strong style="color: var(--text-main); font-size: 0.9rem;">v${v.numero}</strong>
-                    <span style="font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono);">${v.fecha}</span>
+            <li class="version-item">
+                <div class="version-item-header">
+                    <strong class="version-number">v${v.numero}</strong>
+                    <span class="version-date">${v.fecha}</span>
                 </div>
-                <span style="font-size: 0.82rem; color: var(--text-muted); display: block; margin-top: 0.2rem;">${v.comentario || ''}</span>
+                <span class="version-comment">${v.comentario || ''}</span>
                 ${linkGenerator(v)}
             </li>
         `).join('');
@@ -252,29 +246,14 @@ function setupTabs() {
         button.addEventListener('click', () => {
             const targetId = button.getAttribute('data-tab');
 
-            // 1. Resetear estilos de todos los botones
-            tabButtons.forEach(btn => {
-                btn.classList.remove('active');
-                btn.style.color = 'var(--text-muted)';
-                btn.style.borderBottom = 'none';
-            });
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            tabContents.forEach(content => content.classList.remove('active'));
 
-            // 2. Ocultar todos los contenedores de pestaña
-            tabContents.forEach(content => {
-                content.classList.remove('active');
-                content.style.display = 'none';
-            });
-
-            // 3. Activar el botón pulsado
             button.classList.add('active');
-            button.style.color = 'var(--text-main)';
-            button.style.borderBottom = '2px solid var(--text-main)';
-
-            // 4. Mostrar el contenedor elegido (Bitácora o Visor)
+            
             const targetContent = document.getElementById(targetId);
             if (targetContent) {
                 targetContent.classList.add('active');
-                targetContent.style.display = 'block';
             }
         });
     });

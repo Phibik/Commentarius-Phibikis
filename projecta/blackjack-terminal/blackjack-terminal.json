@@ -3,7 +3,7 @@
 	"version":	"1.0",
 	"clase":	"opus",
 	"tipo":		"github",
-	"tags":		["Programación"],
+	"tags":		["Programación", "Juego"],
 	"importancia":	2,
 
 	"enlace": "https://github.com/Phibik/Blackjack-Terminal",
