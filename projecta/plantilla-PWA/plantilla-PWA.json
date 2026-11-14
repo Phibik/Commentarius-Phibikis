@@ -1,0 +1,20 @@
+{
+	"nombre":	"Plantilla PWA",
+	"version":	"1.0",
+	"clase":	"opus",
+	"tipo":		"github",
+	"tags":		["Programación"],
+	"importancia":	3,
+
+	"enlace": "https://github.com/Phibik/PWA-Schema",
+	
+	"sinopsis": 	"Plantilla para desarrollar PWAs, con un service worker preparado para almacenar automáticamente todo a caché y con su respectivo manifest.json.",
+
+	"versiones": [
+		{
+			"numero": "1.0",
+			"fecha": "2025.04.30",
+			"comentario": ""
+		}
+	]
+}

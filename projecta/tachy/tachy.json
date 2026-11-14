@@ -6,25 +6,13 @@
 	"tags":		["Lingüística", "Sistemas"],
 	"importancia":	1,
 	
-	"sinopsis": 	"Sinopsis tachy, Sinopsis tachy, Sinopsis tachy, Sinopsis tachy, Sinopsis tachy, Sinopsis tachy, Sinopsis tachy, Sinopsis tachy, Sinopsis tachy, Sinopsis tachy",
+	"sinopsis": 	"Una taquigrafía internacional y multilingual, ya que es fonética. Se insipra y traduce con IPA, además de seguir una filosofía de maximización de legibilidad, velocidad y expresividad acorde a otras taquigrafías.",
 
 	"versiones": [
 		{
 			"numero": "0.1",
 			"fecha": "2026.11.08",
 			"comentario": "snapshot 1"
-		},
-		{
-			"numero": "1.1",
-			"fecha": "2026.11.08",
-			"comentario": "Un texto largo para ver como se ve, ademas las versio"
-		},
-		{
-			"numero": "1.2",
-			"fecha": "2026.11.08",
-			"comentario": ""
 		}
-
-
 	]
 }

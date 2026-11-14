@@ -6,7 +6,7 @@
 	"tags":		["Matemáticas", "Programación"],
 	"importancia":	0,
 	
-	"sinopsis": 	"Apuntes tomados durante el primer año de carrera en la UAB. Contiene introducción a los elementos pasivos básicos, leyes de Kirchhoff, métodos, teoremas y circuitos transitorios con condensadores y bobinas.",
+	"sinopsis": 	"Un vídeo sobre funciones tradicionales, pero con un dominio complejo. La clave del vídeo es representar las funciones complejas de una forma más intuitiva, de una manera que nunca había visto representar en ningún otro sitio, utilizando funciones paramétricas y las variables n y m.Todos los cálculos los he realizado yo, excepto sin(a), cos(a), tan(a), sinh(a), cosh(a), tanh(a) y a!.Esta es mi primera animación y, además de estar hecha en 3D, ha requerido más de 3000 líneas de código.",
 
 	"versiones": [
 		{

@@ -93,14 +93,14 @@
     background: var(--color-opus-bg);
     color: var(--color-opus);
     border-color: rgba(56, 189, 248, 0.25);
-    box-shadow: 0 4px 12px -2px rgba(56, 189, 248, 0.2);
+    box-shadow: 0 0px 12px -2px rgba(56, 189, 248, 0.2);
 }
 
 .segmented-control input[type="radio"]#cla-adum:checked + label.label-adumbratio {
     background: var(--color-adumbratio-bg);
     color: var(--color-adumbratio);
     border-color: rgba(251, 146, 60, 0.25);
-    box-shadow: 0 4px 12px -2px rgba(251, 146, 60, 0.2);
+    box-shadow: 0 0px 12px -2px rgba(251, 146, 60, 0.2);
 }
 
 /* ==========================================================================

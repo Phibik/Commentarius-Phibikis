@@ -1,0 +1,18 @@
+{
+	"nombre":	"Sistema de Notaciones",
+	"version":	"0.1",
+	"clase":	"adumbratio",
+	"tipo":		"pdf",
+	"tags":		["Lingüística", "Sistemas", "Filosofía"],
+	"importancia":	1,
+	
+	"sinopsis": 	"Un sistema de comunicación altamente simétrico por encima del idioma, capaz de expresarse sobre cualquier tema. Presenta una completitud de relaciones ontológicas para desarrollar toda idea posible.",
+
+	"versiones": [
+		{
+			"numero": "0.1",
+			"fecha": "2026.05.28",
+			"comentario": "snapshot 1"
+		}
+	]
+}
