@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="css/layout.css">
     <link rel="stylesheet" href="css/tarjeta-proyecto.css">
     <link rel="stylesheet" href="css/tarjeta-log.css">
+    <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
 
@@ -19,70 +20,84 @@
         <div class="nav-container">
             <a href="index.html" class="brand">Commentarius Phibikis</a>
             <nav class="nav-links">
-                <a href="html/diarium.html">Diarium</a>
                 <a href="html/projecta.html">Projecta</a>
+                <a href="html/diarium.html">Diarium</a>
+                <a href="html/auctor.html">Auctor</a>
             </nav>
         </div>
     </header>
 
     <main class="project-container">
         
-        <!-- SECCIÓN INTRODUCCIÓN & LEYENDA -->
-        <section id="manifestum" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 4rem; align-items: start;">
-            
-            <!-- Presentación / Manifiesto -->
-            <div>
-                <h1 class="project-title" style="font-size: 2.2rem; margin-bottom: 1rem; color: var(--text-main);">Commentarius Phibikis</h1>
-                <p style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1rem;">
-                    Bienvenido a mi cuaderno de campo digital. Este espacio funciona como un depósito estático e independiente de investigaciones abiertas, proyectos de ingeniería y notas técnicas.
-                </p>
-                <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.6;">
-                    Construido bajo una filosofía minimalista sin bases de datos pesadas: todo el conocimiento se organiza mediante archivos planos en formato abierto.
-                </p>
+        <!-- INTRODUCCIÓN, ACCIONES Y NOMENCLATURA -->
+        <section id="manifestum" class="hero-intro">
+            <div class="hero-top-row">
+                <div class="hero-copy">
+                    <span class="hero-kicker">Martí Figuerola Giner</span>
+                    <h1 class="hero-lead">
+                        Archivo personal de investigaciones, proyectos y notas técnicas
+                    </h1>
+                    <p class="hero-sub">
+                        Aquí recojo tanto trabajos terminados como experimentos en curso y apuntes de estudio, documentados de forma abierta junto a su evolución.
+                    </p>
+                </div>
+
+                <div class="hero-actions">
+                    <a href="html/projecta.html" class="btn-action btn-primary">
+                        Ver Catálogo →
+                    </a>
+                    <a href="html/auctor.html" class="btn-action btn-secondary">
+                        Sobre Mí
+                    </a>
+                </div>
             </div>
 
-            <!-- Cuadrado de Leyenda / Glosario -->
-            <div style="background: var(--surface-color); border: 1px solid var(--border-color); padding: 1.5rem; border-radius: 8px;">
-                <h3 style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); font-family: var(--font-mono); margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; margin-top: 0;">
-                    📖 LEYENDA Y NOMENCLATURA
-                </h3>
-                <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; display: flex; flex-direction: column; gap: 0.75rem;">
-                    <li>
-                        <strong style="color: var(--text-main); font-family: var(--font-mono);">Projecta</strong> 
-                        <span style="color: var(--text-muted); display: block; font-size: 0.85rem;">Proyectos de toda clase en cualquier tipo de estado.</span>
-                    </li>
-                    <li>
-                        <strong style="color: var(--text-main); font-family: var(--font-mono);">Opus</strong> 
-                        <span style="color: var(--text-muted); display: block; font-size: 0.85rem;">Trabajo, proyecto terminados y formalmente acabado.</span>
-                    </li>
-                    <li>
-                        <strong style="color: var(--text-main); font-family: var(--font-mono);">Adumbratio</strong> 
-                        <span style="color: var(--text-muted); display: block; font-size: 0.85rem;">Borrador, proyecto en desarrollo e inacabado.</span>
-                    </li>
-                    <li>
-                        <strong style="color: var(--text-main); font-family: var(--font-mono);">Diarium</strong> 
-                        <span style="color: var(--text-muted); display: block; font-size: 0.85rem;">Bitácora cronológica con los últimos avances y logs.</span>
-                    </li>
-                </ul>
+            <div class="nomenclature-strip" aria-label="Leyenda de nomenclatura">
+                <div class="nomenclature-item">
+                    <span class="nom-term projecta">PROJECTA</span>
+                    <span class="nom-desc">Proyectos</span>
+                </div>
+                <span class="nom-sep">·</span>
+                <div class="nomenclature-item">
+                    <span class="nom-term opus">OPUS</span>
+                    <span class="nom-desc">Trabajo acabado</span>
+                </div>
+                <span class="nom-sep">·</span>
+                <div class="nomenclature-item">
+                    <span class="nom-term adumbratio">ADUMBRATIO</span>
+                    <span class="nom-desc">Borrador en desarrollo</span>
+                </div>
+                <span class="nom-sep">·</span>
+                <div class="nomenclature-item">
+                    <span class="nom-term diarium">DIARIUM</span>
+                    <span class="nom-desc">Bitácora de avances</span>
+                </div>
+                <span class="nom-sep">·</span>
+                <div class="nomenclature-item">
+                    <span class="nom-term auctor">AUCTOR</span>
+                    <span class="nom-desc">Sobre el autor</span>
+                </div>
             </div>
-
         </section>
 
-        <!-- SECCIÓN OPERA (Proyectos) -->
-        <section id="opera" style="margin-bottom: 4rem;">
-            <h2 class="project-title" style="font-size: 1.8rem; margin-bottom: 1.5rem;">Opera (Proyectos)</h2>
-            <div id="projects-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
-                <!-- Se inyecta dinámicamente -->
-                <p style="color: var(--text-muted);">Cargando proyectos...</p>
+        <!-- SECCIÓN OPERA (Proyectos destacados) -->
+        <section id="opera" class="home-section">
+            <div class="section-header-row">
+                <h2 class="section-heading">Opera <span class="section-heading-sub">· Proyectos destacados</span></h2>
+            </div>
+            <div id="projects-grid" class="home-projects-grid">
+                <p class="loading-msg">Cargando proyectos...</p>
             </div>
         </section>
 
         <!-- SECCIÓN DIARIUM (Logs) -->
-        <section id="diarium" style="border-top: 1px solid var(--border-color); padding-top: 3rem;">
-            <h2 style="font-size: 1.5rem; margin-bottom: 1rem;">Diarium (Bitácora de Campo)</h2>
-            <div id="diarium-feed" style="display: flex; flex-direction: column; gap: 1rem;">
-                <!-- Se inyecta dinámicamente -->
-                <p style="color: var(--text-muted);">Cargando registros...</p>
+        <section id="diarium" class="home-section home-section-bordered">
+            <div class="section-header-row">
+                <h2 class="section-heading">Diarium <span class="section-heading-sub">· Últimos registros</span></h2>
+                <a href="html/diarium.html" class="section-more-link">Bitácora completa →</a>
+            </div>
+            <div id="diarium-feed" class="home-diarium-feed">
+                <p class="loading-msg">Cargando registros...</p>
             </div>
         </section>
 

@@ -68,6 +68,17 @@ async function initCatalogo() {
         
         generarSelectFormatos();
         generarBotonesTags();
+
+        const tagParam = new URLSearchParams(window.location.search).get('tag');
+        if (tagParam && contenedorTags) {
+            const btnCoincidente = Array.from(contenedorTags.querySelectorAll('.btn-tag'))
+                .find(b => b.getAttribute('data-tag').toLowerCase() === tagParam.toLowerCase());
+            if (btnCoincidente) {
+                tagsSeleccionadas.add(btnCoincidente.getAttribute('data-tag'));
+                btnCoincidente.classList.add('active');
+            }
+        }
+
         renderProyectos();
 
         const radiosFiltro = document.querySelectorAll('.segmented-control input[type="radio"]');

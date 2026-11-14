@@ -225,27 +225,35 @@
 
 /* Botones de filtro inactivos por defecto */
 .btn-tag {
-    background: var(--surface-color);
-    color: var(--text-muted);
+    display: inline-flex;
+    align-items: center;
+    padding: 0.28rem 0.65rem;
+    border-radius: 4px;
+    background: var(--bg-surface);
     border: 1px solid var(--border-color);
-    padding: 0.3rem 0.75rem;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    cursor: pointer;
+    color: var(--text-muted);
     font-family: var(--font-mono);
-    transition: all 150ms var(--ease-hypr, ease);
-    outline: none;
+    font-size: 0.78rem;
+    line-height: 1.2;
+    cursor: pointer;
+    user-select: none;
+    transition: border-color 260ms var(--ease-hypr),
+                background-color 260ms var(--ease-hypr),
+                color 260ms var(--ease-hypr),
+                box-shadow 260ms var(--ease-hypr);
 }
 
-.btn-tag:hover {
-    border-color: var(--text-muted);
+/* Hover sin seleccionar: solo tiñe suavemente el borde */
+.btn-tag:not(.active):hover {
+    border-color: color-mix(in srgb, var(--accent-secondary) 40%, var(--border-color));
 }
 
-/* Botón presionado (Filtro Activo) */
+/* Seleccionada: borde rebajado, fondo tenue y texto en acento secundario */
 .btn-tag.active {
-    background: var(--text-main);
-    color: var(--bg-main);
-    border-color: var(--text-main);
+    background: var(--accent-secondary-bg);
+    border-color: color-mix(in srgb, var(--accent-secondary) 45%, transparent);
+    color: var(--accent-secondary);
+    box-shadow: 0 0 12px -4px color-mix(in srgb, var(--accent-secondary) 35%, transparent);
 }
 
 /* ==========================================================================

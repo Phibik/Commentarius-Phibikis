@@ -16,13 +16,13 @@
 </head>
 <body>
 
-    <!-- Navbar Fija -->
     <header class="navbar">
         <div class="nav-container">
             <a href="../index.html" class="brand">Commentarius Phibikis</a>
             <nav class="nav-links">
+                <a href="projecta.html">Projecta</a>
                 <a href="diarium.html">Diarium</a>
-                <a href="projecta.html" class="active">Projecta</a>
+                <a href="auctor.html">Auctor</a>
             </nav>
         </div>
     </header>
@@ -32,10 +32,9 @@
         
         <!-- Cabecera del Proyecto -->
         <div class="sketch-header-top">
-            <a href="projecta.html" class="btn-icon">← Volver al índice</a>
+            <a href="projecta.html" class="btn-icon">← Volver al Catálogo</a>
             <div class="sketch-meta-info">
-                <span id="proj-date-latest">----.--.--</span> <span class="separator">|</span> 
-                <strong id="proj-version-latest" class="version-highlight">v-.--</strong>
+                <span id="proj-version-latest" class="version-highlight">v-.--</span>
             </div>
         </div>
 
@@ -44,32 +43,61 @@
             Cargando proyecto...
         </h1>
 
-        <!-- Barra de Acciones y Badges -->
+        <!-- Barra de Acciones, Badge y Etiquetas -->
         <div class="sketch-actions-bar">
             <div class="badge-group">
                 <span id="proj-type-badge" class="badge">OPUS</span>
+                <div id="proj-tags-list" class="project-tags"></div>
             </div>
             
             <div class="action-buttons-group">
-                <a id="btn-ver-online" href="#" target="_blank" class="btn-icon">
-                    Ver Online (PDF)
-                </a>
-                <a id="btn-download-pdf-latest" href="#" class="btn-icon" download>
+                <!-- 1. Acción Principal -->
+                <a id="btn-action-primary" href="#" class="btn-action btn-primary hidden">
                     Descargar PDF
                 </a>
-                <button id="btn-copy-bibtex" class="btn-icon">
-                    BibTeX
-                </button>
+
+                <!-- 2. Acción Secundaria (PDF / GitHub) -->
+                <a id="btn-action-secondary" href="#" target="_blank" rel="noopener noreferrer" class="btn-action btn-secondary hidden">
+                    Ver PDF
+                </a>
+
+                <!-- 3. Acción Terciaria: Desplegable Citar -->
+                <div id="cite-dropdown" class="cite-dropdown">
+                    <button id="btn-cite-toggle" type="button" class="btn-action btn-tertiary" aria-haspopup="true" aria-expanded="false">
+                        <span class="cite-btn-label">Citar</span>
+                        <svg class="cite-chevron" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+
+                    <div id="cite-menu" class="cite-menu" role="menu">
+                        <div class="cite-menu-header">Copiar referencia</div>
+                        <button type="button" class="cite-option" data-format="bibtex" role="menuitem">
+                            <span class="cite-option-name">BibTeX</span>
+                            <span class="cite-option-status">@misc</span>
+                        </button>
+                        <button type="button" class="cite-option" data-format="apa" role="menuitem">
+                            <span class="cite-option-name">APA 7</span>
+                            <span class="cite-option-status">Copiar</span>
+                        </button>
+                        <button type="button" class="cite-option" data-format="ieee" role="menuitem">
+                            <span class="cite-option-name">IEEE</span>
+                            <span class="cite-option-status">Copiar</span>
+                        </button>
+                        <button type="button" class="cite-option" data-format="mla" role="menuitem">
+                            <span class="cite-option-name">MLA</span>
+                            <span class="cite-option-status">Copiar</span>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- NAVEGACIÓN DE PESTAÑAS -->
         <div class="tabs-nav">
             <button class="tab-btn active" data-tab="tab-bitacora">Bitácora</button>
-            <button class="tab-btn hidden" data-tab="tab-latex">Visor PDF</button>
+            <button class="tab-btn" data-tab="tab-latex">Visor PDF</button>
         </div>
 
-        <!-- PESTAÑA 1: BITÁCORA COMPLETA (Se oculta al cambiar de pestaña) -->
+        <!-- PESTAÑA 1: BITÁCORA COMPLETA -->
         <div id="tab-bitacora" class="tab-content active">
             
             <!-- PANEL PRINCIPAL (Sinopsis/Desc/Figura + Versiones Lateral) -->
@@ -107,7 +135,7 @@
 
             </section>
 
-            <!-- LOGS DEL DIARIUM (Parte inferior de la Bitácora) -->
+            <!-- LOGS DEL DIARIUM -->
             <section class="logs-section">
                 <h3 class="section-subtitle">📅 Bitácora de Campo (Diarium)</h3>
                 <div id="proj-logs-list" class="logs-grid">
@@ -118,7 +146,7 @@
         </div>
 
         <!-- PESTAÑA 2: VISOR DEDICADO (PDF / Vídeo YouTube) -->
-        <div id="tab-latex" class="tab-content hidden">
+        <div id="tab-latex" class="tab-content">
             <div class="pdf-wrapper">
                 <iframe id="proj-pdf-iframe" src="" class="pdf-iframe"></iframe>
             </div>

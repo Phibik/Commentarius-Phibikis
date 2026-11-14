@@ -1,7 +1,11 @@
-Si hi ha nous "tipo" en filtro-proyectos.js afegir format visual
-if(fmt === 'pdf') nombreFmt = 'PDF';
-if(fmt === 'github') nombreFmt = 'GitHub';
-if(fmt === 'video') nombreFmt = 'Vídeo';
+FORMAT tipos.json (id: nom visible)
+{
+	"pdf": "PDF",
+	"video": "Vídeo",
+	"github": "GitHub"
+}
+
+Els nous tipos s'ha de configurar ja sigui amb IA rapidament pels noms dels botons i les pestanyes
 
 FORMAT projecta.json
 [

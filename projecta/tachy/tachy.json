@@ -13,6 +13,18 @@
 			"numero": "0.1",
 			"fecha": "2026.11.08",
 			"comentario": "snapshot 1"
+		},
+		{
+			"numero": "1.1",
+			"fecha": "2026.11.08",
+			"comentario": "Un texto largo para ver como se ve, ademas las versio"
+		},
+		{
+			"numero": "1.2",
+			"fecha": "2026.11.08",
+			"comentario": ""
 		}
+
+
 	]
 }

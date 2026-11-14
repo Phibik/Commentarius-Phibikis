@@ -1,7 +1,55 @@
-// Carga todos los proyectos chivándose en consola si un JSON tiene fallos de sintaxis
+window.tiposProyectoMap = {};
+
+// Carga y valida tipos.json avisando en consola si hay errores de sintaxis o estructura
+window.cargarTiposProyecto = async function(basePath = '') {
+    const url = `${basePath}projecta/tipos.json`;
+    try {
+        const res = await fetch(url);
+        if (!res.ok) {
+            console.error(`❌ [tipos.json] Error HTTP ${res.status}: No se pudo cargar '${url}'.`);
+            return {};
+        }
+
+        const rawText = await res.text();
+        let parsed;
+
+        try {
+            parsed = JSON.parse(rawText);
+        } catch (syntaxErr) {
+            console.error(`❌ [SINTAXIS JSON ROTA] Revisa '${url}':`, syntaxErr.message);
+            return {};
+        }
+
+        if (typeof parsed !== 'object' || parsed === null || Array.isArray(parsed)) {
+            console.error(`❌ [ESTRUCTURA JSON INVÁLIDA] '${url}' debe ser un objeto clave-valor ({ "tipo": "Nombre" }), no un array ni null.`);
+            return {};
+        }
+
+        const normalizado = {};
+        for (const [clave, valor] of Object.entries(parsed)) {
+            if (typeof valor !== 'string' || !valor.trim()) {
+                console.error(`❌ [tipos.json] Valor inválido para "${clave}": se esperaba un texto no vacío.`);
+                continue;
+            }
+            normalizado[clave.toLowerCase().trim()] = valor.trim();
+        }
+
+        window.tiposProyectoMap = normalizado;
+        return normalizado;
+    } catch (e) {
+        console.error(`❌ [tipos.json] Error de red leyendo '${url}':`, e);
+        return {};
+    }
+};
+
+// Carga todos los proyectos y los tipos chivándose en consola si un JSON tiene fallos
 window.cargarProyectos = async function(basePath = '') {
     try {
-        const res = await fetch(`${basePath}projecta/projecta.json`);
+        const [res] = await Promise.all([
+            fetch(`${basePath}projecta/projecta.json`),
+            window.cargarTiposProyecto(basePath)
+        ]);
+
         if (!res.ok) throw new Error(`No se pudo cargar projecta.json (HTTP ${res.status})`);
         const projectIds = await res.json();
 
@@ -11,6 +59,11 @@ window.cargarProyectos = async function(basePath = '') {
                 if (!r.ok) throw new Error(`HTTP ${r.status}`);
                 const meta = await r.json();
                 meta._id = id;
+
+                if (Array.isArray(meta.tags)) {
+                    meta.tags.sort((a, b) => a.localeCompare(b, 'es', { sensitivity: 'base' }));
+                }
+
                 return meta;
             } catch (e) {
                 console.error(`❌ [SINTAXIS JSON ROTA] Revisa 'projecta/${id}/${id}.json':`, e.message);
@@ -27,8 +80,12 @@ window.cargarProyectos = async function(basePath = '') {
 };
 
 window.generarTarjetaHTML = function(meta, hrefPrefix = '', index = 0) {
-    const claseLower = (meta.clase || 'opus').toLowerCase();
-    const formatoStr = (meta.formato || meta.tipo || 'pdf').toUpperCase();
+    const claseLower = (meta.clase || 'opus').toLowerCase().trim();
+    const claseStr = claseLower.toLocaleUpperCase('es');
+
+    const tipoKey = (meta.formato || meta.tipo || 'pdf').toLowerCase().trim();
+    const tipoNombre = window.tiposProyectoMap[tipoKey] || tipoKey;
+    const formatoStr = tipoNombre.toLocaleUpperCase('es');
     
     // Jerarquía de Importancia: 0 (Ultra/Destacado), 1 (Alta), 2 (Media), 3 (Normal/Sin icono)
     const impVal = Math.min(Math.max(parseInt(meta.importancia ?? 3), 0), 3);
@@ -37,14 +94,11 @@ window.generarTarjetaHTML = function(meta, hrefPrefix = '', index = 0) {
     let titleShimmerClass = '';
 
     if (impVal === 0) {
-        // Nivel 0: Estrella con resplandor + Título Shimmer Permanente
         importanciaHTML = `<span class="card-importance star-level-0" title="Destacado (Nivel 0)">★</span>`;
         titleShimmerClass = 'has-shimmer';
     } else if (impVal === 1) {
-        // Nivel 1: Estrella en color primario
         importanciaHTML = `<span class="card-importance star-level-1" title="Importancia Nivel 1">★</span>`;
     } else if (impVal === 2) {
-        // Nivel 2: Estrella sobria gris
         importanciaHTML = `<span class="card-importance star-level-2" title="Importancia Nivel 2">★</span>`;
     }
 
@@ -57,14 +111,18 @@ window.generarTarjetaHTML = function(meta, hrefPrefix = '', index = 0) {
         }
     }
 
-    const tagsHTML = (meta.tags || []).map(t => 
+    const tagsOrdenadas = Array.isArray(meta.tags)
+        ? [...meta.tags].sort((a, b) => a.localeCompare(b, 'es', { sensitivity: 'base' }))
+        : [];
+
+    const tagsHTML = tagsOrdenadas.map(t => 
         `<span class="tag-pill">${t}</span>`
     ).join('');
 
     return `
         <a href="${hrefPrefix}projectum.html?id=${meta._id}" class="card-project" style="--card-index: ${index};">
             <div class="card-top-bar">
-                <span class="badge-type ${claseLower}">${claseLower} &bull; ${formatoStr}</span>
+                <span class="badge-type ${claseLower}">${claseStr} &middot; ${formatoStr}</span>
                 ${importanciaHTML}
             </div>
 
@@ -79,6 +137,76 @@ window.generarTarjetaHTML = function(meta, hrefPrefix = '', index = 0) {
         </a>
     `;
 };
+
+/* ==========================================================================
+   AJUSTE RESPONSIVE DE ETIQUETAS Y LÍNEAS DE SINOPSIS
+   ========================================================================== */
+function ajustarTagsTarjeta(card) {
+    const footer = card.querySelector('.card-footer');
+    const date = card.querySelector('.card-date');
+    const tags = card.querySelector('.card-tags');
+    if (!footer || !tags) return;
+
+    const count = tags.querySelectorAll('.tag-pill').length;
+    if (count <= 1) {
+        tags.removeAttribute('data-wrap');
+        return;
+    }
+
+    const csFooter = getComputedStyle(footer);
+    const minGap = parseFloat(csFooter.columnGap || csFooter.gap) || 14;
+    const dateWidth = date ? date.offsetWidth : 0;
+    const disponible = footer.clientWidth - dateWidth - minGap;
+
+    tags.removeAttribute('data-wrap');
+    if (tags.scrollWidth <= disponible + 1) return;
+
+    if (count === 4) {
+        tags.setAttribute('data-wrap', 'grid-2');
+    } else if (count === 6) {
+        tags.setAttribute('data-wrap', 'grid-3');
+        if (tags.scrollWidth > disponible + 1) {
+            tags.setAttribute('data-wrap', 'grid-2');
+        }
+    } else {
+        tags.setAttribute('data-wrap', 'flex');
+    }
+}
+
+function ajustarSinopsisTarjeta(card) {
+    const sinopsis = card.querySelector('.card-sinopsis');
+    if (!sinopsis) return;
+
+    const csCard = getComputedStyle(card);
+    const padV = parseFloat(csCard.paddingTop) + parseFloat(csCard.paddingBottom);
+    const gap = parseFloat(csCard.rowGap || csCard.gap) || 0;
+    const innerHeight = card.clientHeight - padV;
+
+    let otrosHijos = 0;
+    let visibles = 0;
+    for (const child of card.children) {
+        if (getComputedStyle(child).display === 'none') continue;
+        visibles++;
+        if (child !== sinopsis) {
+            otrosHijos += child.offsetHeight;
+        }
+    }
+
+    const disponible = innerHeight - otrosHijos - gap * Math.max(0, visibles - 1);
+    const lineHeight = parseFloat(getComputedStyle(sinopsis).lineHeight);
+    if (lineHeight > 0) {
+        const lines = Math.max(3, Math.floor((disponible + 1) / lineHeight));
+        sinopsis.style.setProperty('--sinopsis-lines', lines);
+    }
+}
+
+function ajustarTarjetaCompleta(card) {
+    if (card._lastCardWidth !== card.clientWidth) {
+        card._lastCardWidth = card.clientWidth;
+        ajustarTagsTarjeta(card);
+    }
+    ajustarSinopsisTarjeta(card);
+}
 
 /* ==========================================================================
    LÓGICA DE PROXIMIDAD (SPOTLIGHT DE BORDE) & INCLINACIÓN 3D
@@ -133,23 +261,72 @@ document.addEventListener('mouseout', (e) => {
     }
 });
 
+// ==========================================================================
+// RESIZE OBSERVER CENTRALIZADO (Para evitar duplicación de código)
+// ==========================================================================
+window.observarTarjetasGrid = function(containerElement) {
+    if (!containerElement) return null;
+
+    const observer = new ResizeObserver(entries => {
+        for (const entry of entries) {
+            if (typeof window.ajustarTarjetaCompleta === 'function') {
+                window.ajustarTarjetaCompleta(entry.target);
+            }
+        }
+    });
+
+    containerElement.querySelectorAll('.card-project').forEach(card => {
+        card._lastCardWidth = null;
+        if (typeof window.ajustarTarjetaCompleta === 'function') {
+            window.ajustarTarjetaCompleta(card);
+        }
+        observer.observe(card);
+    });
+
+    return observer;
+};
+
+// ==========================================================================
+// CARGA Y RENDERIZADO DE PROYECTOS EN EL INDEX
+// ==========================================================================
 async function initIndex() {
     const projectsGrid = document.getElementById('projects-grid');
     if (!projectsGrid) return;
 
     try {
         let proyectos = await window.cargarProyectos('');
-        proyectos.sort((a, b) => (a.importancia ?? 99) - (b.importancia ?? 99));
 
-        projectsGrid.innerHTML = proyectos
+        // 1. Filtrar solo los de clase 'opus' para la sección Opera
+        const proyectosOpus = proyectos.filter(p => (p.clase || 'opus').toLowerCase().trim() === 'opus');
+
+        // 2. Ordenar por importancia y recortar los 3 primeros
+        proyectosOpus.sort((a, b) => (a.importancia ?? 99) - (b.importancia ?? 99));
+
+        projectsGrid.innerHTML = proyectosOpus
             .slice(0, 3)
-            .map(p => window.generarTarjetaHTML(p, 'html/'))
+            .map((p, idx) => window.generarTarjetaHTML(p, 'html/', idx))
             .join('');
+
+        // 3. Inicializar el ResizeObserver centralizado
+        window.observarTarjetasGrid(projectsGrid);
+
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(() => {
+                projectsGrid.querySelectorAll('.card-project').forEach(card => {
+                    card._lastCardWidth = null;
+                    if (typeof window.ajustarTarjetaCompleta === 'function') {
+                        window.ajustarTarjetaCompleta(card);
+                    }
+                });
+            });
+        }
     } catch (e) {
         console.error("Error cargando destacados en index:", e);
-        projectsGrid.innerHTML = `<p style="color: #ef4444;">No se pudieron cargar los proyectos.</p>`;
+        projectsGrid.innerHTML = `<p class="error-msg">No se pudieron cargar los proyectos.</p>`;
     }
 }
+
+document.addEventListener('DOMContentLoaded', initIndex);
 
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initIndex);

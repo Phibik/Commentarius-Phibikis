@@ -1,3 +1,7 @@
+/* ==========================================================================
+   PROJECTUM PHIBIKIS — ESTILOS ESPECÍFICOS DE LA PÁGINA DEL PROYECTO
+   ========================================================================== */
+
 /* --------------------------------------------------------------------------
    1. LAYOUT PRINCIPAL Y UTILIDADES
    -------------------------------------------------------------------------- */
@@ -15,10 +19,17 @@
     color: #ef4444;
 }
 
+.error-title {
+    color: #ef4444;
+    margin-bottom: 0.5rem;
+}
+
+.error-text,
 .error-container p {
     color: var(--text-muted);
 }
 
+.btn-icon-margin,
 .error-container .btn-icon {
     margin-top: 1rem;
 }
@@ -59,12 +70,9 @@
     color: var(--text-muted);
 }
 
-.sketch-meta-info .separator {
-    margin: 0 0.5rem;
-}
-
 .version-highlight {
     color: var(--text-main);
+    font-weight: 400;
 }
 
 .project-title-main {
@@ -75,7 +83,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   3. BARRA DE ACCIONES Y BADGES
+   3. BARRA DE ACCIONES, BADGES Y ETIQUETAS
    -------------------------------------------------------------------------- */
 .sketch-actions-bar {
     display: flex;
@@ -83,18 +91,16 @@
     align-items: center;
     flex-wrap: wrap;
     gap: 1rem;
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 1.5rem;
 }
 
 .badge-group {
     display: flex;
-    gap: 0.5rem;
+    flex-wrap: wrap;
+    gap: 0.75rem;
     align-items: center;
 }
 
-/* Base del badge, las variaciones de color (.opus, .adumbratio) se heredan de base.css o tarjeta-proyecto.css */
 .badge {
     background: var(--bg-surface);
     border: 1px solid var(--border-color);
@@ -105,9 +111,201 @@
     text-transform: uppercase;
 }
 
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-mono);
+}
+
+.project-tags .tag-pill {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.project-tags .tag-pill:hover {
+    border-color: var(--accent-secondary-bg);
+    color: var(--accent-secondary);
+    background: rgba(45, 212, 191, 0.05);
+}
+
+/* Grupo de botones con jerarquía de 3 niveles */
 .action-buttons-group {
     display: flex;
-    gap: 0.8rem;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.65rem;
+}
+
+.btn-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    padding: 0.52rem 1rem;
+    border-radius: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.84rem;
+    line-height: 1.2;
+    text-decoration: none;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color var(--transition-smooth),
+                border-color var(--transition-smooth),
+                color var(--transition-smooth),
+                box-shadow var(--transition-smooth);
+}
+
+/* Nivel 1: Primario (Sólido amarillo + resplandor centrado, sin elevación) */
+.btn-primary {
+    background: var(--accent-primary);
+    border: 1px solid var(--accent-primary);
+    color: var(--bg-main);
+    font-weight: 600;
+}
+
+.btn-primary:hover {
+    background: var(--accent-primary-hover);
+    border-color: var(--accent-primary-hover);
+    color: var(--bg-main);
+    box-shadow: 0 0 20px rgba(250, 204, 21, 0.42);
+}
+
+/* Nivel 2: Secundario (Borde y texto en acento primario, sin elevación) */
+.btn-secondary {
+    background: var(--bg-surface);
+    border: 1px solid var(--accent-primary);
+    color: var(--accent-primary);
+    font-weight: 500;
+}
+
+.btn-secondary:hover {
+    background: var(--accent-primary-bg);
+    border-color: var(--accent-primary-hover);
+    color: var(--accent-primary);
+    box-shadow: 0 0 14px rgba(250, 204, 21, 0.16);
+}
+
+/* Nivel 3: Terciario (Neutro nítido, sin perder legibilidad) */
+.btn-tertiary {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-highlight);
+    color: var(--text-main);
+    font-weight: 400;
+    padding: 0.52rem 0.9rem;
+}
+
+.btn-tertiary:hover,
+.cite-dropdown.is-open .btn-tertiary {
+    background: var(--bg-surface-hover);
+    border-color: var(--text-muted);
+    color: var(--text-main);
+}
+
+/* Menú desplegable de Citas (Estilo Hyprland) */
+.cite-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.cite-chevron {
+    transition: transform 250ms var(--ease-hypr);
+}
+
+.cite-dropdown.is-open .cite-chevron {
+    transform: rotate(180deg);
+}
+
+.cite-menu {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 0.45rem);
+    min-width: 220px;
+    padding: 0.35rem;
+    border-radius: 8px;
+    background: rgba(22, 22, 26, 0.94);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border-highlight);
+    box-shadow: 0 14px 34px -6px rgba(0, 0, 0, 0.78),
+                0 0 0 1px rgba(255, 255, 255, 0.02);
+    z-index: 60;
+
+    opacity: 0;
+    transform: translateY(-6px) scale(0.97);
+    transform-origin: top right;
+    pointer-events: none;
+    transition: opacity 180ms var(--ease-hypr), transform 240ms var(--ease-hypr);
+}
+
+.cite-dropdown.is-open .cite-menu {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
+.cite-menu-header {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    opacity: 0.7;
+    padding: 0.35rem 0.6rem 0.45rem;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 0.25rem;
+}
+
+.cite-option {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.48rem 0.6rem;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-main);
+    cursor: pointer;
+    text-align: left;
+    transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.cite-option:hover {
+    background: var(--bg-surface-hover);
+    border-color: var(--border-color);
+}
+
+.cite-option-status {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    transition: color var(--transition-fast);
+}
+
+.cite-option:hover .cite-option-status {
+    color: var(--accent-primary);
+}
+
+.cite-option.copied {
+    background: rgba(45, 212, 191, 0.08);
+    border-color: rgba(45, 212, 191, 0.25);
+}
+
+.cite-option.copied .cite-option-name,
+.cite-option.copied .cite-option-status {
+    color: var(--accent-secondary);
+}
+
+@media (max-width: 520px) {
+    .cite-menu {
+        left: 0;
+        right: auto;
+        transform-origin: top left;
+    }
 }
 
 /* --------------------------------------------------------------------------
@@ -126,6 +324,7 @@
     padding: 0.6rem 1rem;
     color: var(--text-muted);
     font-family: var(--font-mono);
+    font-size: 0.9rem;
     cursor: pointer;
     border-bottom: 2px solid transparent;
     transition: color var(--transition-fast), border-color var(--transition-fast);
@@ -153,19 +352,18 @@
    -------------------------------------------------------------------------- */
 .bitacora-grid {
     display: grid;
-    grid-template-columns: 1fr 300px;
-    gap: 2rem;
+    grid-template-columns: minmax(0, 1fr) minmax(480px, 560px);
+    gap: 2.25rem;
     margin-bottom: 3rem;
     align-items: start;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 980px) {
     .bitacora-grid {
         grid-template-columns: 1fr;
     }
 }
 
-/* Componentes internos de la bitácora */
 .content-block {
     margin-bottom: 1.5rem;
 }
@@ -179,7 +377,7 @@
     font-size: 0.75rem;
     font-family: var(--font-mono);
     color: var(--text-muted);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
     text-transform: uppercase;
 }
 
@@ -211,64 +409,157 @@
     margin: 0;
 }
 
-/* Columna Lateral (Versiones) */
+/* --------------------------------------------------------------------------
+   6. HISTORIAL DE VERSIONES (Timeline dinámico tipo Hyprland)
+   -------------------------------------------------------------------------- */
 .sidebar-box {
     background: var(--bg-surface);
     border: 1px solid var(--border-color);
-    padding: 1.2rem;
+    padding: 1.25rem 1.4rem;
     border-radius: 8px;
+    transition: border-color var(--transition-smooth);
+}
+
+.sidebar-box:hover {
+    border-color: var(--border-highlight);
 }
 
 .versions-list {
+    position: relative;
     list-style: none;
-    padding: 0;
+    padding: 0 0 0 1.15rem;
     margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
 }
 
 .version-item {
-    margin-bottom: 0.7rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px dashed var(--border-color);
-}
-
-.version-item-header {
+    position: relative;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 0.38rem 0.55rem;
+    border-radius: 5px;
+    transition: background-color var(--transition-fast);
+}
+
+.version-item:hover {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+/* Nodo circular sobre el eje */
+.version-item::before {
+    content: '';
+    position: absolute;
+    left: -1.15rem;
+    top: 0.62rem;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--bg-surface);
+    border: 1.5px solid var(--border-highlight);
+    z-index: 1;
+    transition: border-color 240ms var(--ease-hypr),
+                background-color 240ms var(--ease-hypr);
+}
+
+/* Línea conectora solo entre versiones (no aparece si solo hay 1) */
+.version-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: calc(-1.15rem + 4px);
+    top: calc(0.62rem + 9px);
+    bottom: calc(-0.35rem - 0.62rem);
+    width: 1px;
+    background: var(--border-color);
+}
+
+/* Versión activa / seleccionada */
+.version-item.is-current::before {
+    background: var(--accent-primary);
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 8px rgba(250, 204, 21, 0.55);
+}
+
+/* Transición sutil de relleno al pasar sobre una versión no actual */
+.version-item:not(.is-current):hover::before {
+    border-color: var(--text-main);
+    background: var(--text-main);
+}
+
+.version-main {
+    min-width: 0;
+    flex: 1;
+    font-size: 0.84rem;
+    line-height: 1.4;
+    color: var(--text-muted);
 }
 
 .version-number {
+    font-family: var(--font-mono);
+    font-weight: 400;
     color: var(--text-main);
-    font-size: 0.9rem;
+    opacity: 0.78;
+}
+
+.version-item.is-current .version-number {
+    opacity: 1;
+    font-weight: 400;
+}
+
+.version-text {
+    color: var(--text-muted);
+}
+
+.version-meta-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    flex-shrink: 0;
+    line-height: 1.4;
 }
 
 .version-date {
-    font-size: 0.75rem;
+    font-size: 0.76rem;
     color: var(--text-muted);
     font-family: var(--font-mono);
+    white-space: nowrap;
 }
 
-.version-comment {
-    font-size: 0.82rem;
+.version-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 4px;
+    transition: color var(--transition-fast), background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.version-action.available {
     color: var(--text-muted);
-    display: block;
-    margin-top: 0.2rem;
 }
 
-.version-link {
+.version-item:hover .version-action.available {
     color: var(--text-main);
-    text-decoration: none;
-    font-size: 0.8rem;
-    display: block;
-    margin-top: 0.2rem;
 }
 
-.version-link:hover {
+.version-action.available:hover {
     color: var(--accent-primary);
+    background: var(--accent-primary-bg);
+    transform: translate(1px, -1px);
+}
+
+.version-action.unavailable {
+    color: var(--text-muted);
+    opacity: 0.35;
+    cursor: not-allowed;
 }
 
 /* --------------------------------------------------------------------------
-   6. LOGS DEL DIARIUM
+   7. LOGS DEL DIARIUM
    -------------------------------------------------------------------------- */
 .logs-section {
     border-top: 1px solid var(--border-color);
@@ -282,7 +573,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   7. VISOR DEDICADO (PDF / Video)
+   8. VISOR DEDICADO (PDF / Video)
    -------------------------------------------------------------------------- */
 .pdf-wrapper {
     width: 100%;
@@ -290,25 +581,21 @@
 
 .pdf-iframe {
     width: 100%;
-    height: 750px;
+    height: 1150px;
     border: none;
     background: var(--bg-surface);
     border-radius: 8px;
     display: block;
 }
 
-/* --------------------------------------------------------------------------
-   8. ESTILOS DE ERROR (Inyectados por JS)
-   -------------------------------------------------------------------------- */
-.error-title {
-    color: #ef4444; /* Rojo para alertas */
-    margin-bottom: 0.5rem;
+.pdf-iframe.is-video {
+    height: auto;
+    aspect-ratio: 16 / 9;
 }
 
-.error-text {
-    color: var(--text-muted);
-}
-
-.btn-icon-margin {
-    margin-top: 1rem;
+@media (max-width: 768px) {
+    .pdf-iframe {
+        height: 75vh;
+        min-height: 550px;
+    }
 }
