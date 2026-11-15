@@ -16,6 +16,7 @@
 </head>
 <body>
 
+    <!-- Navbar Fija -->
     <header class="navbar">
         <div class="nav-container">
             <a href="../index.html" class="brand">Commentarius Phibikis</a>
@@ -100,28 +101,14 @@
         <!-- PESTAÑA 1: BITÁCORA COMPLETA -->
         <div id="tab-bitacora" class="tab-content active">
             
-            <!-- PANEL PRINCIPAL (Sinopsis/Desc/Figura + Versiones Lateral) -->
+            <!-- PANEL SUPERIOR (Sinopsis + Versiones Lateral) -->
             <section id="bitacora-container" class="bitacora-grid">
                 
-                <!-- COLUMNA IZQUIERDA -->
+                <!-- COLUMNA IZQUIERDA (Sinopsis) -->
                 <div class="bitacora-col-main">
-                    <!-- Sinopsis -->
-                    <div class="content-block">
+                    <div class="content-block no-margin-bottom">
                         <h3 class="section-subtitle">📝 Sinopsis</h3>
                         <p id="proj-sinopsis-text" class="text-block"></p>
-                    </div>
-
-                    <!-- Descripción Ampliada (Opcional) -->
-                    <div id="proj-descripcion-container" class="content-block border-top hidden">
-                        <h3 class="section-subtitle">📖 Descripción Técnica</h3>
-                        <p id="proj-descripcion-text" class="text-block text-extended"></p>
-                    </div>
-
-                    <!-- Figura / Demostración (Opcional) -->
-                    <div id="proj-figura-container" class="content-block border-top hidden">
-                        <h3 class="section-subtitle">🖼️ Demostración</h3>
-                        <img id="proj-figura-img" alt="Demostración" class="demo-image">
-                        <p id="proj-figura-caption" class="demo-caption"></p>
                     </div>
                 </div>
 
@@ -132,6 +119,44 @@
                         <!-- Inyectado dinámicamente -->
                     </ul>
                 </aside>
+
+            </section>
+
+            <!-- SECCIÓN OPCIONAL: IMÁGENES (CARRUSEL) Y DESCRIPCIÓN -->
+            <section id="proj-descripcion-section" class="descripcion-section hidden">
+                
+                <!-- 1. Carrusel de Imágenes -->
+                <div id="proj-imagenes-block" class="imagenes-block hidden">
+                    <div class="imagenes-header-row">
+                        <h3 class="section-subtitle no-margin-bottom">🖼️ Imágenes</h3>
+                        <span id="carousel-counter" class="carousel-counter"></span>
+                    </div>
+
+                    <div id="proj-carousel" class="carousel-wrapper">
+                        <div id="proj-carousel-viewport" class="carousel-viewport">
+                            <div id="proj-carousel-stage" class="carousel-stage">
+                                <div id="proj-carousel-track" class="carousel-track"></div>
+                            </div>
+
+                            <button id="carousel-prev" type="button" class="carousel-nav prev" aria-label="Imagen anterior">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+                            </button>
+                            <button id="carousel-next" type="button" class="carousel-nav next" aria-label="Imagen siguiente">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+                            </button>
+                        </div>
+
+                        <div id="carousel-controls" class="carousel-controls">
+                            <div id="carousel-dots" class="carousel-dots" role="tablist" aria-label="Selector de imagen"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Descripción Ampliada -->
+                <div id="proj-descripcion-block" class="descripcion-block hidden">
+                    <h3 class="section-subtitle">📖 Descripción</h3>
+                    <div id="proj-descripcion-content" class="descripcion-paragraphs"></div>
+                </div>
 
             </section>
 
@@ -153,6 +178,12 @@
         </div>
 
     </main>
+
+    <!-- Lightbox para ampliar imágenes -->
+    <div id="image-lightbox" class="image-lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Imagen ampliada">
+        <button id="lightbox-close" type="button" class="lightbox-close" aria-label="Cerrar imagen">✕</button>
+        <img id="lightbox-img" src="" alt="Vista ampliada" class="lightbox-img">
+    </div>
 
     <footer class="footer">
         <p>Commentarius Phibikis &copy; 2026</p>

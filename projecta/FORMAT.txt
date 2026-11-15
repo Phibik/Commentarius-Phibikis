@@ -25,6 +25,10 @@ FORMAT <id>.json
 
 	"sinopsis": "Este proyecto trata de...",
 
+	"imagenes": 1,		(numero de imagenes, formato <id>-n.png)
+
+	"descripcion": (opcional)
+
 	"versiones": [
 		{
 			"numero": "1.3",

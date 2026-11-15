@@ -157,7 +157,7 @@
                 box-shadow var(--transition-smooth);
 }
 
-/* Nivel 1: Primario (Sólido amarillo + resplandor centrado, sin elevación) */
+/* Nivel 1: Primario (Sólido amarillo + resplandor centrado) */
 .btn-primary {
     background: var(--accent-primary);
     border: 1px solid var(--accent-primary);
@@ -172,7 +172,7 @@
     box-shadow: 0 0 20px rgba(250, 204, 21, 0.42);
 }
 
-/* Nivel 2: Secundario (Borde y texto en acento primario, sin elevación) */
+/* Nivel 2: Secundario (Borde y texto en acento primario) */
 .btn-secondary {
     background: var(--bg-surface);
     border: 1px solid var(--accent-primary);
@@ -187,7 +187,7 @@
     box-shadow: 0 0 14px rgba(250, 204, 21, 0.16);
 }
 
-/* Nivel 3: Terciario (Neutro nítido, sin perder legibilidad) */
+/* Nivel 3: Terciario (Neutro nítido) */
 .btn-tertiary {
     background: var(--bg-surface);
     border: 1px solid var(--border-highlight);
@@ -348,13 +348,13 @@
 }
 
 /* --------------------------------------------------------------------------
-   5. LAYOUT DE LA BITÁCORA
+   5. LAYOUT SUPERIOR DE LA BITÁCORA (Sinopsis + Versiones)
    -------------------------------------------------------------------------- */
 .bitacora-grid {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(480px, 560px);
     gap: 2.25rem;
-    margin-bottom: 3rem;
+    margin-bottom: 2.75rem;
     align-items: start;
 }
 
@@ -368,9 +368,9 @@
     margin-bottom: 1.5rem;
 }
 
-.content-block.border-top {
-    border-top: 1px solid var(--border-color);
-    padding-top: 1rem;
+.content-block.no-margin-bottom,
+.no-margin-bottom {
+    margin-bottom: 0;
 }
 
 .section-subtitle {
@@ -387,26 +387,15 @@
 
 .text-block {
     color: var(--text-main);
-    line-height: 1.6;
+    line-height: 1.65;
     margin: 0;
+    text-align: justify;
+    hyphens: none;
+    -webkit-hyphens: none;
 }
 
 .text-extended {
     font-size: 0.95rem;
-}
-
-.demo-image {
-    width: 100%;
-    border-radius: 6px;
-    border: 1px solid var(--border-color);
-    margin-bottom: 0.4rem;
-}
-
-.demo-caption {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    font-family: var(--font-mono);
-    margin: 0;
 }
 
 /* --------------------------------------------------------------------------
@@ -559,7 +548,312 @@
 }
 
 /* --------------------------------------------------------------------------
-   7. LOGS DEL DIARIUM
+   7. SECCIÓN OPCIONAL: CARRUSEL TIPO HYPRLAND Y DESCRIPCIÓN
+   -------------------------------------------------------------------------- */
+.descripcion-section {
+    border-top: 1px solid var(--border-color);
+    padding-top: 2rem;
+    margin-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.25rem;
+}
+
+.imagenes-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.carousel-counter {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+
+.carousel-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+}
+
+/* Sin caja exterior: pista limpia donde las imágenes flotan como ventanas */
+.carousel-viewport {
+    position: relative;
+    width: 100%;
+}
+
+.carousel-stage {
+    width: 100%;
+    overflow: hidden;
+    padding: 0.35rem 0 0.9rem;
+}
+
+/* Degradado muy sutil en bordes para que las imágenes adyacentes se vean bien */
+.carousel-stage.has-multiple {
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 3%, #000 97%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, #000 3%, #000 97%, transparent 100%);
+}
+
+.carousel-track {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    transition: transform 420ms var(--ease-hypr);
+    will-change: transform;
+}
+
+.carousel-track.no-transition,
+.carousel-track.no-transition .carousel-slide {
+    transition: none !important;
+}
+
+/* Cada diapositiva toma exactamente el ancho de su imagen */
+.carousel-slide {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.48;
+    transform: scale(0.95);
+    cursor: pointer;
+    transition: opacity 380ms var(--ease-hypr),
+                transform 380ms var(--ease-hypr);
+}
+
+/* Imágenes muy panorámicas se limitan al 74% para dejar ver las siguientes */
+.carousel-slide.is-ultrawide {
+    width: 74%;
+}
+
+.carousel-slide.is-single.is-ultrawide {
+    width: 100%;
+}
+
+.carousel-slide:not(.is-active):hover {
+    opacity: 0.76;
+}
+
+.carousel-slide.is-active {
+    opacity: 1;
+    transform: scale(1);
+    cursor: zoom-in;
+}
+
+/* Altura uniforme: escala tanto imágenes pequeñas como grandes */
+.carousel-img {
+    display: block;
+    height: 440px;
+    width: auto;
+    max-width: 100%;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-surface);
+    user-select: none;
+    -webkit-user-drag: none;
+    transition: border-color 320ms var(--ease-hypr),
+                box-shadow 320ms var(--ease-hypr);
+}
+
+.carousel-slide.is-ultrawide .carousel-img {
+    width: 100%;
+    height: auto;
+    max-height: 440px;
+}
+
+@media (max-width: 768px) {
+    .carousel-track {
+        gap: 0.85rem;
+    }
+
+    .carousel-slide.is-ultrawide {
+        width: 82%;
+    }
+
+    .carousel-img {
+        height: 290px;
+    }
+
+    .carousel-slide.is-ultrawide .carousel-img {
+        max-height: 290px;
+    }
+}
+
+.carousel-slide.is-active .carousel-img {
+    border-color: var(--border-highlight);
+    box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.65);
+}
+
+.carousel-slide.is-active:hover .carousel-img {
+    border-color: color-mix(in srgb, var(--accent-primary) 45%, var(--border-highlight));
+}
+
+/* Flechas laterales flotantes */
+.carousel-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    background: rgba(18, 18, 22, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--border-highlight);
+    color: var(--text-main);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 5;
+    transition: border-color 240ms var(--ease-hypr),
+                color 240ms var(--ease-hypr),
+                background-color 240ms var(--ease-hypr);
+}
+
+.carousel-nav.prev {
+    left: 0.5rem;
+}
+
+.carousel-nav.next {
+    right: 0.5rem;
+}
+
+.carousel-nav:hover {
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+    background: rgba(24, 24, 30, 0.95);
+}
+
+/* Puntos inferiores centrados con transición fluida */
+.carousel-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 18px;
+}
+
+.carousel-dots {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+}
+
+.carousel-dot {
+    width: 7px;
+    height: 7px;
+    padding: 0;
+    border: none;
+    border-radius: 999px;
+    background: var(--border-highlight);
+    cursor: pointer;
+    transition: width 320ms var(--ease-hypr),
+                background-color 320ms var(--ease-hypr),
+                transform 220ms var(--ease-hypr);
+}
+
+.carousel-dot:hover {
+    background: var(--text-muted);
+    transform: scale(1.15);
+}
+
+.carousel-dot.active {
+    width: 22px;
+    background: var(--accent-primary);
+}
+
+.descripcion-paragraphs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+}
+
+/* Lightbox con transición de escala y blur del fondo */
+.image-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: rgba(10, 10, 13, 0.82);
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    cursor: zoom-out;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 280ms var(--ease-hypr),
+                backdrop-filter 280ms var(--ease-hypr),
+                -webkit-backdrop-filter 280ms var(--ease-hypr),
+                visibility 280ms;
+}
+
+.image-lightbox.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.lightbox-img {
+    max-width: 92vw;
+    max-height: 90vh;
+    border-radius: 8px;
+    border: 1px solid var(--border-highlight);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
+    cursor: default;
+    opacity: 0;
+    transform: scale(0.93);
+    transition: transform 320ms var(--ease-hypr),
+                opacity 260ms var(--ease-hypr);
+}
+
+.image-lightbox.is-open .lightbox-img {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.lightbox-close {
+    position: fixed;
+    top: 1.25rem;
+    right: 1.5rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-highlight);
+    color: var(--text-main);
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 240ms var(--ease-hypr),
+                transform 240ms var(--ease-hypr),
+                background-color var(--transition-fast),
+                border-color var(--transition-fast);
+}
+
+.image-lightbox.is-open .lightbox-close {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.lightbox-close:hover {
+    background: var(--bg-surface-hover);
+    border-color: var(--text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   8. LOGS DEL DIARIUM
    -------------------------------------------------------------------------- */
 .logs-section {
     border-top: 1px solid var(--border-color);
@@ -573,7 +867,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   8. VISOR DEDICADO (PDF / Video)
+   9. VISOR DEDICADO (PDF / Video)
    -------------------------------------------------------------------------- */
 .pdf-wrapper {
     width: 100%;
@@ -594,7 +888,7 @@
 }
 
 @media (max-width: 768px) {
-    .pdf-iframe {
+    .pdf-iframe:not(.is-video) {
         height: 75vh;
         min-height: 550px;
     }
