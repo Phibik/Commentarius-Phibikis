@@ -1,0 +1,45 @@
+{
+	"nombre":	"Procesador de 12 bits en FPGA",
+	"version":	"1.0",
+	"clase":	"opus",
+	"tipo":		"github",
+	"tags":		["Sistemas", "FPGA"],
+	"importancia":	2,
+
+	"enlace": "https://github.com/Phibik/12bit-processor-vhdl",
+	
+	"sinopsis": 	"Diseño e implementación desde cero de un procesador completo de 12 bits desarrollado en Quartus II utilizando una arquitectura híbrida de esquemáticos (BDF) y descripción de hardware en VHDL, sintetizado para una FPGA Altera Cyclone II. El sistema divide su arquitectura en una Unidad de Proceso (UP) encargada de las operaciones aritmético-lógicas y gestión de registros, y una Unidad de Control (UC).",
+
+	"imagenes": 8,
+	"tipo-imagenes": "jpeg",
+
+	"descripcion": "Arquitectura de procesador de 12 bits (littleProc) implementada sobre FPGA Altera Cyclone II (EP2C35F672C6) en entorno Quartus II, combinando diseño jerárquico estructural (Block Diagram Files) con módulos funcionales descritos en VHDL.\n\nArquitectura Top-Level (littleProc): Interconexión de tres bloques principales: Unidad de Control (UC), Unidad de Proceso (UP) y memoria RAM interna (ramv1) de 256 palabras de 12 bits con reloj invertido para estabilización de lectura/escritura.\n\nUnidad de Proceso (UP): Camino de datos (Datapath) de 12 bits articulado sobre un bus interno único con buffers triestado. Integra una ALU de 8 operaciones (selección de 3 bits) con generación de flags de estado (carry, zero, negative), acumulador (ACC), registros de propósito general (R1, R2), contador de programa (PC con carga paralela e inicialización), registro de instrucción (IR) y registros de interfaz de memoria (MAR y MDR con multiplexor de entrada desde bus o RAM).\n\nUnidad de Control (UC): Diseño microprogramado basado en una memoria ROM de control de 256 palabras por 24 bits. La secuenciación de microinstrucciones se gestiona mediante un bloque secuenciador (microPC + incrementador), un decodificador de código de operación de 4 bits (IRdecoder) para mapear instrucciones máquina a direcciones de microrrutina, y lógica de bifurcación condicional (ctrlSeq + multiplexor de flags start, zero, carry, negative). Genera un bus de 20 señales de control hacia la UP.\n\nVerificación y Simulación: Simulación funcional y temporal a nivel de puerta/RTL mediante el simulador de formas de onda de Quartus II, trazando el ciclo de fetch-decode-execute, las transiciones de estado del secuenciador, las microórdenes de la ROM y los resultados de la ALU a lo largo de la ejecución de un programa de prueba.",
+
+	"versiones": [
+		{
+			"numero": "1.0",
+			"fecha": "2024.12.13",
+			"comentario": "Implementación completa de los bloques UC.bdf y UP.bdf"
+		},
+		{
+			"numero": "0.4",
+			"fecha": "2024.11.29",
+			"comentario": "Implementación de ram.vhd y rom.vhd"
+		},
+		{
+			"numero": "0.3",
+			"fecha": "2024.11.21",
+			"comentario": "Implementación de ALU.vhd y primeras simulaciones"
+		},
+		{
+			"numero": "0.2",
+			"fecha": "2024.11.08",
+			"comentario": "Implementación de IRdecoder.vhd y reg.vhd"
+		},
+		{
+			"numero": "0.1",
+			"fecha": "2024.10.25",
+			"comentario": "Implementación de PC.bdf, microPC.bdf y ctrlSeq.bdf"
+		}
+	]
+}

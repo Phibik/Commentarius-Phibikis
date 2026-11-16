@@ -250,8 +250,12 @@ function renderImagenesCarrusel(meta, folder, projectId, hasDescripcion) {
     const openLightbox = setupLightbox();
     const CLONE_COUNT = 3;
 
+    const rawExt = typeof meta['tipo-imagenes'] === 'string' && meta['tipo-imagenes'].trim()
+        ? meta['tipo-imagenes'].trim().replace(/^\./, '').toLowerCase()
+        : 'png';
+
     const items = Array.from({ length: numImagenes }, (_, idx) => ({
-        src: `${folder}/${projectId}-${idx + 1}.png`,
+        src: `${folder}/${projectId}-${idx + 1}.${rawExt}`,
         alt: `${meta.nombre} — Imagen ${idx + 1}`,
         valid: true,
         naturalWidth: 0,
@@ -842,7 +846,14 @@ async function renderGithubProject(meta, folder, projectId, activeVersionObj) {
 
     renderVersionesList(meta.versiones, meta.version, (v) => {
         if (v.disponible === false || v.enlace === false) return null;
-        return v.enlace || v.url || githubUrl;
+
+        const isCurrent = String(v.numero) === String(meta.version);
+        if (isCurrent) {
+            return v.enlace || v.url || githubUrl;
+        }
+
+        // Las versiones anteriores solo son clicables si tienen enlace explícito (ej. a un release/tag)
+        return v.enlace || v.url || null;
     });
 }
 

@@ -354,7 +354,7 @@
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(480px, 560px);
     gap: 2.25rem;
-    margin-bottom: 2.75rem;
+    margin-bottom: 2.25rem;
     align-items: start;
 }
 
@@ -551,9 +551,7 @@
    7. SECCIÓN OPCIONAL: CARRUSEL TIPO HYPRLAND Y DESCRIPCIÓN
    -------------------------------------------------------------------------- */
 .descripcion-section {
-    border-top: 1px solid var(--border-color);
-    padding-top: 2rem;
-    margin-bottom: 3rem;
+    margin-bottom: 2.25rem;
     display: flex;
     flex-direction: column;
     gap: 2.25rem;
@@ -856,8 +854,6 @@
    8. LOGS DEL DIARIUM
    -------------------------------------------------------------------------- */
 .logs-section {
-    border-top: 1px solid var(--border-color);
-    padding-top: 2rem;
     margin-bottom: 3rem;
 }
 
