@@ -309,25 +309,47 @@
 }
 
 /* --------------------------------------------------------------------------
-   4. NAVEGACIÓN DE PESTAÑAS
+   4. NAVEGACIÓN DE PESTAÑAS (Indicador luminoso integrado)
    -------------------------------------------------------------------------- */
 .tabs-nav {
+    position: relative;
     display: flex;
-    gap: 1rem;
-    border-bottom: 1px solid var(--border-color);
-    margin-bottom: 2rem;
+    align-items: center;
+    gap: 0.75rem;
+    padding-bottom: 0.15rem;
+    margin-bottom: 2.25rem;
+}
+
+/* Línea divisora sutil que se desvanece hacia la derecha */
+.tabs-nav::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        var(--border-highlight) 0%,
+        var(--border-color) 55%,
+        transparent 100%
+    );
+    pointer-events: none;
 }
 
 .tab-btn {
-    background: none;
+    position: relative;
+    background: transparent;
     border: none;
-    padding: 0.6rem 1rem;
+    padding: 0.6rem 0.85rem 0.75rem;
     color: var(--text-muted);
     font-family: var(--font-mono);
-    font-size: 0.9rem;
+    font-size: 0.88rem;
+    letter-spacing: 0.02em;
     cursor: pointer;
-    border-bottom: 2px solid transparent;
-    transition: color var(--transition-fast), border-color var(--transition-fast);
+    user-select: none;
+    transition: color 300ms var(--ease-hypr),
+                text-shadow 300ms var(--ease-hypr);
 }
 
 .tab-btn:hover {
@@ -336,7 +358,52 @@
 
 .tab-btn.active {
     color: var(--text-main);
-    border-bottom-color: var(--text-main);
+    text-shadow: 0 0 18px rgba(250, 204, 21, 0.25);
+}
+
+/* Barra deslizante con extremos suavizados y glow contenido */
+.tab-indicator {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 0;
+    border-radius: 999px;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        var(--accent-primary) 22%,
+        var(--accent-primary) 78%,
+        transparent 100%
+    );
+    box-shadow: 0 0 8px rgba(250, 204, 21, 0.34);
+    pointer-events: none;
+    opacity: 0;
+    z-index: 1;
+    transition: transform 420ms var(--ease-hypr),
+                width 420ms var(--ease-hypr),
+                opacity 260ms var(--ease-hypr);
+}
+
+/* Aura ambiental tenue sobre el divisor */
+.tab-indicator::after {
+    content: '';
+    position: absolute;
+    left: 14%;
+    right: 14%;
+    top: -9px;
+    bottom: -9px;
+    background: radial-gradient(
+        ellipse at center,
+        rgba(250, 204, 21, 0.1) 0%,
+        rgba(250, 204, 21, 0.03) 45%,
+        transparent 72%
+    );
+    pointer-events: none;
+}
+
+.tab-indicator.no-transition {
+    transition: none !important;
 }
 
 .tab-content {
@@ -345,6 +412,20 @@
 
 .tab-content.active {
     display: block;
+    animation: tabContentEnter 800ms var(--ease-hypr);
+}
+
+@keyframes tabContentEnter {
+    from {
+        opacity: 0;
+        translate: 0 30px;
+        scale: 0.98;
+    }
+    to {
+        opacity: 1;
+        translate: 0 0;
+        scale: 1;
+    }
 }
 
 /* --------------------------------------------------------------------------

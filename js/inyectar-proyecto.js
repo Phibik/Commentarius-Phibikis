@@ -641,11 +641,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         // 2. Sección opcional: Imágenes (carrusel) y Descripción
         renderDescripcionYImagenes(meta, folder, projectId);
 
-        // 3. Logs del Diarium
+        // 3. Logs del Diarium (pestaña dinámica "Bitácora")
         const projLogsList = document.getElementById('proj-logs-list');
-        if (projLogsList) {
-            const filteredLogs = diariumLogs.filter(log => log.proyecto === projectId);
-            if (filteredLogs.length > 0) {
+        const tabDiariumBtn = document.getElementById('tab-btn-diarium');
+        const filteredLogs = diariumLogs.filter(log => log.proyecto === projectId);
+
+        if (filteredLogs.length > 0) {
+            if (tabDiariumBtn) tabDiariumBtn.classList.remove('hidden');
+            if (projLogsList) {
                 projLogsList.innerHTML = filteredLogs.map(log => `
                     <div class="log-card">
                         <div class="log-header">
@@ -654,9 +657,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                         <p class="log-text">${log.texto}</p>
                     </div>
                 `).join('');
-            } else {
-                projLogsList.innerHTML = `<p class="empty-logs-msg">No hay registros de bitácora para este proyecto todavía.</p>`;
             }
+        } else {
+            if (tabDiariumBtn) tabDiariumBtn.classList.add('hidden');
+            if (projLogsList) projLogsList.innerHTML = '';
         }
 
         // 4. Desplegable de Citas (Siempre visible)
@@ -889,8 +893,46 @@ function renderVersionesList(versiones, activeVersion, getVersionUrl) {
 
 
 function setupTabs() {
+    const tabsNav = document.querySelector('.tabs-nav');
     const tabButtons = document.querySelectorAll('.tab-btn');
     const tabContents = document.querySelectorAll('.tab-content');
+
+    if (!tabsNav || tabButtons.length === 0) return;
+
+    let indicator = tabsNav.querySelector('.tab-indicator');
+    if (!indicator) {
+        indicator = document.createElement('span');
+        indicator.className = 'tab-indicator';
+        indicator.setAttribute('aria-hidden', 'true');
+        tabsNav.appendChild(indicator);
+    }
+
+    const moveIndicator = (targetBtn, animate = true) => {
+        const activeBtn = targetBtn && !targetBtn.classList.contains('hidden')
+            ? targetBtn
+            : (tabsNav.querySelector('.tab-btn.active:not(.hidden)') || tabsNav.querySelector('.tab-btn:not(.hidden)'));
+
+        if (!activeBtn) {
+            indicator.style.opacity = '0';
+            return;
+        }
+
+        const left = activeBtn.offsetLeft;
+        const width = activeBtn.offsetWidth;
+
+        if (!animate) {
+            indicator.classList.add('no-transition');
+            indicator.style.transform = `translateX(${left}px)`;
+            indicator.style.width = `${width}px`;
+            indicator.style.opacity = '1';
+            indicator.offsetWidth;
+            indicator.classList.remove('no-transition');
+        } else {
+            indicator.style.transform = `translateX(${left}px)`;
+            indicator.style.width = `${width}px`;
+            indicator.style.opacity = '1';
+        }
+    };
 
     tabButtons.forEach(button => {
         button.addEventListener('click', () => {
@@ -900,6 +942,7 @@ function setupTabs() {
             tabContents.forEach(content => content.classList.remove('active'));
 
             button.classList.add('active');
+            moveIndicator(button, true);
 
             const targetContent = document.getElementById(targetId);
             if (targetContent) {
@@ -907,4 +950,13 @@ function setupTabs() {
             }
         });
     });
+
+    moveIndicator(null, false);
+    requestAnimationFrame(() => moveIndicator(null, false));
+
+    window.addEventListener('resize', () => moveIndicator(null, false));
+
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => moveIndicator(null, false));
+    }
 }

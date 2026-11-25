@@ -3,7 +3,7 @@
 	"version":	"1.0",
 	"clase":	"opus",
 	"tipo":		"github",
-	"tags":		["Sistemas", "FPGA"],
+	"tags":		["Sistemas", "Electrónica"],
 	"importancia":	2,
 
 	"enlace": "https://github.com/Phibik/12bit-processor-vhdl",

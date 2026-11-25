@@ -94,8 +94,9 @@
 
         <!-- NAVEGACIÓN DE PESTAÑAS -->
         <div class="tabs-nav">
-            <button class="tab-btn active" data-tab="tab-bitacora">Bitácora</button>
+            <button class="tab-btn active" data-tab="tab-bitacora">Archivo</button>
             <button class="tab-btn" data-tab="tab-latex">Visor PDF</button>
+            <button id="tab-btn-diarium" class="tab-btn hidden" data-tab="tab-diarium">Bitácora</button>
         </div>
 
         <!-- PESTAÑA 1: BITÁCORA COMPLETA -->
@@ -159,15 +160,6 @@
                 </div>
 
             </section>
-
-            <!-- LOGS DEL DIARIUM -->
-            <section class="logs-section">
-                <h3 class="section-subtitle">📅 Bitácora de Campo (Diarium)</h3>
-                <div id="proj-logs-list" class="logs-grid">
-                    <!-- Inyectado como cajitas -->
-                </div>
-            </section>
-
         </div>
 
         <!-- PESTAÑA 2: VISOR DEDICADO (PDF / Vídeo YouTube) -->
@@ -175,6 +167,15 @@
             <div class="pdf-wrapper">
                 <iframe id="proj-pdf-iframe" src="" class="pdf-iframe"></iframe>
             </div>
+        </div>
+
+        <!-- PESTAÑA 3: BITÁCORA (Logs del Diarium) -->
+        <div id="tab-diarium" class="tab-content">
+            <section class="logs-section">
+                <div id="proj-logs-list" class="logs-grid">
+                    <!-- Inyectado como cajitas -->
+                </div>
+            </section>
         </div>
 
     </main>

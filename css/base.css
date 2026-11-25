@@ -34,3 +34,39 @@ a:hover {
     background-color: var(--accent-primary);
     color: var(--bg-main);
 }
+
+/* ==========================================================================
+   TRANSICIONES ENTRE PÁGINAS
+   ========================================================================== */
+main {
+    opacity: 0;
+    transform: translateY(6px);
+    animation:
+        pageFade 240ms linear 75ms forwards,
+        pageSlide 240ms var(--ease-hypr, cubic-bezier(0.22, 1, 0.36, 1)) 75ms forwards;
+}
+
+main.is-ready {
+    animation:
+        pageFade 240ms linear 0ms forwards,
+        pageSlide 240ms var(--ease-hypr, cubic-bezier(0.22, 1, 0.36, 1)) 0ms forwards;
+}
+
+@keyframes pageFade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@keyframes pageSlide {
+    from { transform: translateY(6px); }
+    to   { transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    main,
+    main.is-ready {
+        opacity: 1;
+        transform: none;
+        animation: none;
+    }
+}
