@@ -1,7 +1,13 @@
-#proj-logs-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
+/* ==========================================================================
+   COMPONENTE BASE: TARJETA DE LOG (.log-card) Y CONTENEDORES DE FEED
+   ========================================================================== */
+#proj-logs-list,
+#diarium-feed,
+.logs-feed,
+.diarium-feed {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
     width: 100%;
 }
 
@@ -10,28 +16,50 @@
     border: 1px solid var(--border-color);
     border-radius: 6px;
     padding: 0.9rem 1.15rem;
-    flex: 1 1 240px;
-    min-width: 220px;
     position: relative;
-    transition: border-color var(--transition-fast), transform var(--transition-fast);
+    transition: border-color 260ms var(--ease-hypr),
+                background-color 260ms var(--ease-hypr),
+                transform 260ms var(--ease-hypr),
+                box-shadow 260ms var(--ease-hypr);
+
+    animation: cardEntrance 1250ms var(--ease-hypr) both;
 }
 
 .log-card:hover {
+    background-color: var(--bg-surface-hover);
     border-color: var(--border-highlight);
-    transform: translateY(-1px);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.4);
+}
+
+@keyframes cardEntrance {
+    from {
+        opacity: 0;
+        translate: 0 30px;
+        scale: 0.9;
+    }
+    to {
+        opacity: 1;
+        translate: 0 0;
+        scale: 1;
+    }
 }
 
 .log-card .log-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 0.4rem 0.75rem;
     margin-bottom: 0.4rem;
 }
 
 .log-card .log-date {
     font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--accent-primary);
+    font-size: 0.92rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--text-main);
     display: inline-flex;
     align-items: center;
     gap: 0.3rem;
@@ -39,23 +67,148 @@
 
 .log-card .log-project-tag {
     font-family: var(--font-mono);
-    font-size: 0.7rem;
-    color: var(--accent-secondary);
-    background: var(--accent-secondary-bg);
-    padding: 0.1rem 0.4rem;
-    border-radius: 3px;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.14rem 0.45rem;
+    border-radius: 4px;
     text-decoration: none;
-    transition: color var(--transition-fast);
+    white-space: nowrap;
+    transition: color var(--transition-fast), background-color var(--transition-fast);
 }
 
 .log-card .log-project-tag:hover {
-    color: var(--accent-secondary-hover);
+    color: var(--text-main);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.log-card .log-project-tag[data-clase="opus"]:hover {
+    color: var(--color-opus);
+    background: var(--color-opus-bg);
+}
+
+.log-card .log-project-tag[data-clase="adumbratio"]:hover {
+    color: var(--color-adumbratio);
+    background: var(--color-adumbratio-bg);
+}
+
+.log-card .log-general-tag {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.04);
+    padding: 0.14rem 0.45rem;
+    border-radius: 4px;
+    white-space: nowrap;
 }
 
 .log-card .log-text {
-    color: var(--text-main);
+    color: var(--text-muted);
     font-size: 0.88rem;
     line-height: 1.45;
     margin: 0;
     word-break: break-word;
+}
+
+/* ==========================================================================
+   DISPOSICIÓN CHANGELOG EN INDEX, DIARIUM Y PROJECTUM
+   ========================================================================== */
+#proj-logs-list .log-card,
+#diarium-feed .log-card,
+.logs-feed .log-card,
+.diarium-feed .log-card {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 1.05rem 1.35rem;
+    border-left: 2px solid var(--border-color);
+}
+
+#proj-logs-list .log-card:hover,
+#diarium-feed .log-card:hover,
+.logs-feed .log-card:hover,
+.diarium-feed .log-card:hover {
+    border-left-color: var(--accent-primary);
+}
+
+#proj-logs-list .log-header,
+#diarium-feed .log-header,
+.logs-feed .log-header,
+.diarium-feed .log-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.45rem;
+    margin-bottom: 0;
+}
+
+#proj-logs-list .log-date,
+#diarium-feed .log-date,
+.logs-feed .log-date,
+.diarium-feed .log-date {
+    gap: 0.65rem;
+    white-space: nowrap;
+}
+
+#proj-logs-list .log-date::before,
+#diarium-feed .log-date::before,
+.logs-feed .log-date::before,
+.diarium-feed .log-date::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent-primary);
+    box-shadow: 0 0 8px color-mix(in srgb, var(--accent-primary) 55%, transparent);
+    flex-shrink: 0;
+}
+
+#proj-logs-list .log-project-tag,
+#diarium-feed .log-project-tag,
+.logs-feed .log-project-tag,
+.diarium-feed .log-project-tag {
+    max-width: 210px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#proj-logs-list .log-text,
+#diarium-feed .log-text,
+.logs-feed .log-text,
+.diarium-feed .log-text {
+    padding-left: 1rem;
+    border-left: 1px solid var(--border-color);
+    line-height: 1.55;
+}
+
+/* ==========================================================================
+   RESPONSIVE DEL COMPONENTE TARJETA DE LOG
+   ========================================================================== */
+@media (max-width: 640px) {
+    #proj-logs-list .log-card,
+    #diarium-feed .log-card,
+    .logs-feed .log-card,
+    .diarium-feed .log-card {
+        grid-template-columns: 1fr;
+        gap: 0.65rem;
+        padding: 1rem 1.15rem;
+    }
+
+    #proj-logs-list .log-header,
+    #diarium-feed .log-header,
+    .logs-feed .log-header,
+    .diarium-feed .log-header {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.45rem 0.75rem;
+    }
+
+    #proj-logs-list .log-text,
+    #diarium-feed .log-text,
+    .logs-feed .log-text,
+    .diarium-feed .log-text {
+        padding-left: 0;
+        border-left: none;
+    }
 }

@@ -1,56 +1,109 @@
-document.addEventListener('DOMContentLoaded', async () => {
+async function initDiarium() {
     const feed = document.getElementById('diarium-full-feed');
     const selectProyecto = document.getElementById('filtro-proyecto-log');
+    const inputBusqueda = document.getElementById('filtro-busqueda-log');
+    const btnReset = document.getElementById('btn-reset-logs');
+    const counterElem = document.getElementById('diarium-counter');
 
     if (!feed) return;
 
     let logsData = [];
 
     try {
-        const [logsRes, progsRes] = await Promise.all([
-            fetch('../projecta/diarium.json'),
-            fetch('../projecta/projecta.json').catch(() => null)
-        ]);
+        logsData = await window.cargarLogs('../');
 
-        logsData = logsRes.ok ? await logsRes.json() : [];
+        if (selectProyecto) {
+            const proyectosMap = new Map();
+            logsData.forEach(log => {
+                if (log._projId && !proyectosMap.has(log._projId)) {
+                    proyectosMap.set(log._projId, log._projNombre || log._projId);
+                }
+            });
 
-        // Poblar el desplegable de filtro de proyectos si existe
-        if (selectProyecto && progsRes && progsRes.ok) {
-            const projectIds = await progsRes.json();
-            selectProyecto.innerHTML = `<option value="todos">Todos los proyectos (General)</option>` + 
-                projectIds.map(id => `<option value="${id}">${id}</option>`).join('');
-            
+            const proyectosOrdenados = Array.from(proyectosMap.entries())
+                .map(([id, nombre]) => ({ id, nombre }))
+                .sort((a, b) => a.nombre.localeCompare(b.nombre, 'es', { sensitivity: 'base' }));
+
+            selectProyecto.innerHTML = [
+                `<option value="todos">Proyecto: Todos</option>`,
+                `<option value="general">General</option>`,
+                ...proyectosOrdenados.map(p => `<option value="${p.id}">${p.nombre}</option>`)
+            ].join('');
+
             selectProyecto.addEventListener('change', renderLogs);
         }
 
-        renderLogs();
+        document.querySelectorAll('input[name="filtro-orden-log"]').forEach(radio => {
+            radio.addEventListener('change', renderLogs);
+        });
 
+        if (inputBusqueda) {
+            inputBusqueda.addEventListener('input', renderLogs);
+        }
+
+        if (btnReset) {
+            btnReset.addEventListener('click', resetearFiltros);
+        }
+
+        renderLogs();
     } catch (e) {
         console.error("Error cargando el diarium:", e);
-        feed.innerHTML = `<p style="color: #ef4444;">No se pudo cargar la bitácora.</p>`;
+        feed.innerHTML = `<p class="diarium-error-msg">No se pudo cargar la bitácora.</p>`;
+    }
+
+    function resetearFiltros() {
+        const radioRecientes = document.getElementById('log-ord-rec');
+        if (radioRecientes) radioRecientes.checked = true;
+        if (selectProyecto) selectProyecto.value = 'todos';
+        if (inputBusqueda) inputBusqueda.value = '';
+        renderLogs();
     }
 
     function renderLogs() {
-        let lista = [...logsData];
-        const filtro = selectProyecto ? selectProyecto.value : 'todos';
+        const radioOrden = document.querySelector('input[name="filtro-orden-log"]:checked');
+        const ordenSel = radioOrden ? radioOrden.value : 'recientes';
+        const proyectoSel = selectProyecto ? selectProyecto.value : 'todos';
+        const query = (inputBusqueda ? inputBusqueda.value : '').trim().toLowerCase();
 
-        if (filtro !== 'todos') {
-            lista = lista.filter(log => log.proyecto === filtro);
+        let lista = logsData.filter(log => {
+            const projId = log._projId;
+            const projNombre = projId ? log._projNombre : 'general';
+
+            if (proyectoSel === 'general' && projId) return false;
+            if (proyectoSel !== 'todos' && proyectoSel !== 'general' && projId !== proyectoSel) return false;
+
+            if (query) {
+                const texto = `${log.fecha || ''} ${projNombre} ${log.texto || ''}`.toLowerCase();
+                if (!texto.includes(query)) return false;
+            }
+
+            return true;
+        });
+
+        if (ordenSel === 'antiguos') {
+            lista = [...lista].reverse();
+        }
+
+        if (counterElem) {
+            const total = logsData.length;
+            counterElem.textContent = lista.length === total
+                ? `${total} ${total === 1 ? 'registro' : 'registros'}`
+                : `${lista.length} de ${total} registros`;
         }
 
         if (lista.length === 0) {
-            feed.innerHTML = `<p style="color: var(--text-muted); text-align: center; padding: 2rem;">No hay registros para este filtro.</p>`;
+            feed.innerHTML = `<p class="diarium-empty-msg">No hay registros que coincidan con estos filtros.</p>`;
             return;
         }
 
-        feed.innerHTML = lista.map(log => `
-            <div style="background: var(--surface-color); border: 1px solid var(--border-color); padding: 1.2rem; border-radius: 8px;">
-                <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted); font-family: var(--font-mono); margin-bottom: 0.5rem;">
-                    <span>📅 ${log.fecha}</span>
-                    ${log.proyecto ? `<span>🔗 Proyecto: <strong style="color: var(--text-main);">${log.proyecto}</strong></span>` : '<span>✨ Nota general</span>'}
-                </div>
-                <p style="color: var(--text-main); font-size: 0.95rem; line-height: 1.6;">${log.texto}</p>
-            </div>
-        `).join('');
+        feed.innerHTML = lista
+            .map((log, idx) => window.generarTarjetaLogHTML(log, '', idx))
+            .join('');
     }
-});
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initDiarium);
+} else {
+    initDiarium();
+}

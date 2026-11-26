@@ -6,14 +6,21 @@
 
     <title>Diarium Phibikis</title>
 
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/projecte.css">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/tarjeta-log.css">
+    <link rel="stylesheet" href="../css/diarium.css">
 </head>
 <body>
 
     <header class="navbar">
         <div class="nav-container">
-            <a href="../index.html" class="brand">Commentarius Phibikis</a>
+            <a href="../index.html" class="brand">
+                <img src="../images/Logo-Elegant_blanc_v0.1.png" alt="Logo Phibikis" class="brand-logo">
+                <span>Commentarius Phibikis</span>
+            </a>
             <nav class="nav-links">
                 <a href="projecta.html">Projecta</a>
                 <a href="diarium.html" class="active">Diarium</a>
@@ -22,25 +29,69 @@
         </div>
     </header>
 
-    <main class="project-container" style="padding-top: 3rem; max-width: 800px; margin: 0 auto; padding-left: 1.5rem; padding-right: 1.5rem;">
+    <main class="diarium-container">
         
-        <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem; margin-bottom: 2.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1.5rem;">
-            <div>
-                <h1 style="font-size: 2.2rem; margin-bottom: 0.3rem; color: var(--text-main);">Diarium General</h1>
-                <p style="color: var(--text-muted); font-size: 0.95rem;">Bitácora de campo, anotaciones y registro cronológico de actividad.</p>
+        <div class="header-filters-wrapper">
+            
+            <div class="header-top-row">
+                <div class="header-titles">
+                    <div class="title-counter-row">
+                        <h1 class="page-title">Diarium</h1>
+                        <span id="diarium-counter" class="diarium-counter"></span>
+                    </div>
+                    <p class="page-subtitle">Bitácora de campo, anotaciones y registro cronológico de actividad.</p>
+                </div>
+
+                <!-- Barra de Filtros idéntica a Projecta -->
+                <div class="filters-group">
+                    
+                    <!-- ORDEN (Segmentado: Recientes / Antiguos) -->
+                    <div class="segmented-control">
+                        <input type="radio" name="filtro-orden-log" id="log-ord-rec" value="recientes" checked>
+                        <label for="log-ord-rec">Recientes</label>
+
+                        <input type="radio" name="filtro-orden-log" id="log-ord-ant" value="antiguos">
+                        <label for="log-ord-ant">Antiguos</label>
+                    </div>
+
+                    <!-- PROYECTO (Desplegable Dinámico) -->
+                    <select id="filtro-proyecto-log" class="modern-select" aria-label="Filtrar por proyecto">
+                        <option value="todos">Proyecto: Todos</option>
+                    </select>
+
+                    <!-- BOTÓN RESET -->
+                    <button type="button" id="btn-reset-logs" class="btn-reset" title="Restablecer filtros">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                            <path d="M3 3v5h5"/>
+                        </svg>
+                    </button>
+                </div>
             </div>
 
-            <div>
-                <label style="display: block; font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono); margin-bottom: 0.3rem;">FILTRAR POR PROYECTO</label>
-                <select id="filtro-proyecto-log" style="background: var(--surface-color); color: var(--text-main); border: 1px solid var(--border-color); padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.9rem;">
-                    <option value="todos">Cargando proyectos...</option>
-                </select>
+            <!-- Buscador de palabras clave (en el espacio de las tags de Projecta) -->
+            <div class="search-filter-wrapper">
+                <div class="search-input-box">
+                    <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="m21 21-4.3-4.3"/>
+                    </svg>
+                    <input
+                        type="search"
+                        id="filtro-busqueda-log"
+                        class="modern-search-input"
+                        placeholder="Buscar por palabra clave..."
+                        autocomplete="off"
+                        aria-label="Buscar por palabra clave"
+                    >
+                </div>
             </div>
+
         </div>
 
         <!-- Feed de Registros -->
-        <div id="diarium-full-feed" style="display: flex; flex-direction: column; gap: 1.2rem; margin-bottom: 4rem;">
-            <p style="color: var(--text-muted);">Cargando registros de la bitácora...</p>
+        <div id="diarium-full-feed" class="diarium-feed">
+            <p class="diarium-status-msg">Cargando registros de la bitácora...</p>
         </div>
 
     </main>
@@ -49,6 +100,7 @@
         <p>Commentarius Phibikis &copy; 2026</p>
     </footer>
 
+    <script type="module" src="../js/inyectar-index-logs.js"></script>
     <script type="module" src="../js/filtro-logs.js"></script>
 </body>
 </html>

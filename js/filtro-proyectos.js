@@ -4,6 +4,7 @@ async function initCatalogo() {
     const contenedorTags = document.getElementById('contenedor-tags');
     const wrapperTags = document.getElementById('wrapper-tags');
     const btnReset = document.getElementById('btn-reset-filtros');
+    const counterElem = document.getElementById('projecta-counter');
 
     if (!grid) return;
 
@@ -209,6 +210,14 @@ async function initCatalogo() {
             }
             return 0;
         });
+
+        if (counterElem) {
+            const total = proyectosData.length;
+            const unidad = total === 1 ? 'proyecto' : 'proyectos';
+            counterElem.textContent = lista.length === total
+                ? `${total} ${unidad}`
+                : `${lista.length} de ${total} ${unidad}`;
+        }
 
         if (lista.length === 0) {
             grid.innerHTML = `<p class="empty-msg">No hay proyectos que coincidan con estos filtros.</p>`;

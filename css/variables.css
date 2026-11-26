@@ -57,6 +57,8 @@
     --shimmer-speed: 2s;
 
     --ease-hypr: cubic-bezier(0.16, 1, 0.3, 1);
-    --transition-fast: 150ms var(--ease-hypr);
+    --ease-glow: cubic-bezier(0.25, 0.6, 0.3, 1);
+    --transition-fast: 200ms linear;
     --transition-smooth: 250ms var(--ease-hypr);
+    --transition-glow: 250ms var(--ease-glow);
 }

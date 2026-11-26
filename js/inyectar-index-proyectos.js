@@ -200,13 +200,13 @@ function ajustarSinopsisTarjeta(card) {
     }
 }
 
-function ajustarTarjetaCompleta(card) {
+window.ajustarTarjetaCompleta = function(card) {
     if (card._lastCardWidth !== card.clientWidth) {
         card._lastCardWidth = card.clientWidth;
         ajustarTagsTarjeta(card);
     }
     ajustarSinopsisTarjeta(card);
-}
+};
 
 /* ==========================================================================
    LÓGICA DE PROXIMIDAD (SPOTLIGHT DE BORDE) & INCLINACIÓN 3D
