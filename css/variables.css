@@ -4,6 +4,40 @@
     inherits: false;
 }
 
+/* 1. Fira Code (Monospace) */
+@font-face {
+  font-family: 'JetBrains';
+  src: url('../fonts/JetBrainsMono-Regular.ttf') format('truetype');
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 2. Inter Tight (Títulos) */
+@font-face {
+  font-family: 'Inter Tight';
+  src: url('../fonts/InterTight.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 3 y 4. Latin Modern Roman (Para "commentarius phibikis") */
+@font-face {
+  font-family: 'Latin Modern Roman';
+  src: url('../fonts/lmroman10-regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Latin Modern Roman';
+  src: url('../fonts/lmroman10-bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
     /* Fondos Neutros Puros (Sin gota de azul) */
     --bg-main: #0e0e10;
@@ -21,7 +55,10 @@
     --text-main: #e6e8ee;
     --text-muted: #8b92a4;
     --font-body: 'Inter', system-ui, -apple-system, sans-serif;
-    --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+    --font-heading: 'Inter Tight', 'Arial Narrow', Arial, sans-serif;
+    --font-brand: 'Latin Modern Roman', Georgia, 'Times New Roman', serif;
+    --font-mono: 'JetBrains', 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+    --tracking-heading: 0.03em;
 
     /* Acentos */
     --accent-primary: #facc15;

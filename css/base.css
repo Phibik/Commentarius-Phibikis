@@ -35,6 +35,12 @@ a:hover {
     color: var(--bg-main);
 }
 
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: var(--tracking-heading);
+}
+
 /* ==========================================================================
    TRANSICIONES ENTRE PÁGINAS
    ========================================================================== */

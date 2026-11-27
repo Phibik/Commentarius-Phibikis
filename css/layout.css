@@ -7,14 +7,6 @@
     flex: 1;
 }
 
-.section-title {
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: var(--text-main);
-    margin-bottom: 1.25rem;
-    letter-spacing: -0.02em;
-}
-
 .projects-grid,
 #projects-grid,
 #proyectos-container {
