@@ -32,54 +32,43 @@
 
     <main class="project-container">
         
-        <!-- INTRODUCCIÓN, ACCIONES Y NOMENCLATURA -->
+        <!-- CABECERA: PRESENTACIÓN, ACCIONES Y TAXONOMÍA -->
         <section id="manifestum" class="hero-intro">
-            <div class="hero-top-row">
-                <div class="hero-copy">
+            <div class="hero-grid">
+                <div class="hero-main">
                     <span class="hero-kicker">Martí Figuerola Giner</span>
                     <h1 class="hero-lead">
-                        Archivo personal de investigaciones, proyectos y notas técnicas
+                        Repertorio personal de investigaciones, proyectos y notas técnicas
                     </h1>
                     <p class="hero-sub">
                         Aquí recojo tanto trabajos terminados como experimentos en curso y apuntes de estudio, documentados de forma abierta junto a su evolución.
                     </p>
+
+                    <div class="hero-actions">
+                        <a href="html/projecta.html" class="btn-action btn-primary">
+                            Explorar Proyectos →
+                        </a>
+                        <a href="html/auctor.html" class="btn-action btn-secondary">
+                            Sobre el Autor
+                        </a>
+                    </div>
                 </div>
 
-                <div class="hero-actions">
-                    <a href="html/projecta.html" class="btn-action btn-primary">
-                        Ver Catálogo →
-                    </a>
-                    <a href="html/auctor.html" class="btn-action btn-secondary">
-                        Sobre Mí
-                    </a>
-                </div>
-            </div>
-
-            <div class="nomenclature-strip" aria-label="Leyenda de nomenclatura">
-                <div class="nomenclature-item">
-                    <span class="nom-term projecta">PROJECTA</span>
-                    <span class="nom-desc">Proyectos</span>
-                </div>
-                <span class="nom-sep">·</span>
-                <div class="nomenclature-item">
-                    <span class="nom-term opus">OPUS</span>
-                    <span class="nom-desc">Trabajo acabado</span>
-                </div>
-                <span class="nom-sep">·</span>
-                <div class="nomenclature-item">
-                    <span class="nom-term adumbratio">ADUMBRATIO</span>
-                    <span class="nom-desc">Borrador en desarrollo</span>
-                </div>
-                <span class="nom-sep">·</span>
-                <div class="nomenclature-item">
-                    <span class="nom-term diarium">DIARIUM</span>
-                    <span class="nom-desc">Bitácora de avances</span>
-                </div>
-                <span class="nom-sep">·</span>
-                <div class="nomenclature-item">
-                    <span class="nom-term auctor">AUCTOR</span>
-                    <span class="nom-desc">Sobre el autor</span>
-                </div>
+                <aside class="taxonomy-card" aria-label="Clasificación de obras">
+                    <div class="taxonomy-header">
+                        <span class="taxonomy-title">Clasificación de archivos</span>
+                    </div>
+                    <ul class="taxonomy-list">
+                        <li class="taxonomy-item">
+                            <span class="tax-badge opus">OPUS</span>
+                            <p class="tax-desc">Obra concluida, documentada y cerrada en una versión estable.</p>
+                        </li>
+                        <li class="taxonomy-item">
+                            <span class="tax-badge adumbratio">ADUMBRATIO</span>
+                            <p class="tax-desc">Esbozo activo, investigación abierta o prototipo en desarrollo.</p>
+                        </li>
+                    </ul>
+                </aside>
             </div>
         </section>
 
@@ -87,6 +76,7 @@
         <section id="opera" class="home-section">
             <div class="section-header-row">
                 <h2 class="section-heading">Opera <span class="section-heading-sub">· Proyectos destacados</span></h2>
+                <a href="html/projecta.html" class="section-more-link">Catálogo completo →</a>
             </div>
             <div id="projects-grid" class="home-projects-grid">
                 <p class="loading-msg">Cargando proyectos...</p>
