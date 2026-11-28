@@ -1,6 +1,6 @@
 {
 	"nombre":	"Blackjack Terminal",
-	"version":	"1.0",
+	"version":	"1.0.1",
 	"clase":	"opus",
 	"tipo":		"github",
 	"tags":		["Programación", "Juego"],
@@ -15,6 +15,11 @@
 	"descripcion": "El código está organizado en distintos módulos de Python para separar la lógica del juego de la interfaz de usuario. Incluye la gestión de la baraja y las cartas, el control del estado de cada partida, la distribución de turnos y la comprobación de las condiciones de victoria o derrota. También contempla acciones propias del Blackjack, como pedir carta, plantarse y rendirse (surrender), además de distintos modos de comportamiento de la banca: uno estándar, que se planta al llegar a 17, y otro más difícil, que continúa jugando hasta igualar o superar la puntuación del jugador. También incorpora un sistema de apuestas con saldo inicial, registro de victorias y derrotas, y estadísticas de rendimiento. Entre las opciones avanzadas se encuentran el Double Down, que duplica la apuesta a cambio de recibir una única carta adicional, y el Split, que permite dividir una pareja inicial en dos manos independientes. La puntuación se calcula dinámicamente, contemplando el valor variable de los ases para evitar superar los 21 puntos siempre que sea posible. La lógica se implementa mediante clases y una máquina de estados que controla las distintas fases de la partida y las transiciones entre los turnos del jugador y la banca.",
 
 	"versiones": [
+		{
+			"numero": "1.0.1",
+			"fecha": "2026.11.28",
+			"comentario": "Corrección del menú"
+		},
 		{
 			"numero": "1.0",
 			"fecha": "2026.02.18",
