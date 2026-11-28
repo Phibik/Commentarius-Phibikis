@@ -557,10 +557,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const projectId = urlParams.get('id');
 
-    if (!projectId) {
+    if (!projectId || !/^[a-zA-Z0-9_-]+$/.test(projectId)) {
         document.getElementById('project-container').innerHTML = `
             <div class="error-container">
-                <h2 class="error-title">Error: No se ha especificado ningún proyecto.</h2>
+                <h2 class="error-title">Error: Identificador de proyecto no válido.</h2>
                 <a href="../index.html" class="btn-icon btn-icon-margin">← Volver al inicio</a>
             </div>
         `;
@@ -679,15 +679,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         setupTabs();
 
-    } catch (e) {
+} catch (e) {
         console.error("Error inyectando proyecto:", e);
-        document.getElementById('project-container').innerHTML = `
+        const container = document.getElementById('project-container');
+        container.innerHTML = `
             <div class="error-container">
-                <h2 class="error-title">Error al cargar el proyecto '${projectId}'</h2>
-                <p class="error-text">Comprueba la consola y verifica que <code>./projecta/${projectId}/${projectId}.json</code> existe y tiene sintaxis válida.</p>
+                <h2 class="error-title"></h2>
+                <p class="error-text">Comprueba la consola y verifica que <code></code> existe y tiene sintaxis válida.</p>
                 <a href="../index.html" class="btn-icon btn-icon-margin">← Volver al inicio</a>
             </div>
         `;
+        container.querySelector('.error-title').textContent = `Error al cargar el proyecto '${projectId}'`;
+        container.querySelector('code').textContent = `./projecta/${projectId}/${projectId}.json`;
     }
 });
 
