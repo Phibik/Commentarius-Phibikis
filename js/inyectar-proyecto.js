@@ -666,11 +666,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         // 4. Desplegable de Citas (Siempre visible)
         setupCiteDropdown(generarCitas(meta, projectId, activeVersionObj, nombreTipo));
 
-        // 5. Enrutador de botones primario/secundario según el tipo
+// 5. Enrutador de botones primario/secundario según el tipo
         if (tipoProyecto === 'github') {
             await renderGithubProject(meta, folder, projectId, activeVersionObj);
         } else if (tipoProyecto === 'video') {
             renderVideoProject(meta, folder, projectId, activeVersionObj);
+        } else if (tipoProyecto === 'memoria') {
+            renderMemoriaProject(meta, folder, projectId, activeVersionObj);
         } else {
             await renderPdfProject(meta, folder, projectId, activeVersionObj);
         }
@@ -861,6 +863,41 @@ async function renderGithubProject(meta, folder, projectId, activeVersionObj) {
     });
 }
 
+function renderMemoriaProject(meta, folder, projectId, activeVersionObj) {
+    // Ocultar el visor y dejar activa la pestaña principal ("Archivo")
+    const tabVisorBtn = document.querySelector('[data-tab="tab-latex"]');
+    if (tabVisorBtn) {
+        tabVisorBtn.classList.add('hidden');
+        tabVisorBtn.classList.remove('active');
+    }
+
+    const tabVisorContent = document.getElementById('tab-latex');
+    if (tabVisorContent) {
+        tabVisorContent.classList.remove('active');
+    }
+
+    const defaultTabBtn = document.querySelector('.tabs-nav .tab-btn:not(.hidden)');
+    if (defaultTabBtn) {
+        defaultTabBtn.classList.add('active');
+        const defaultTabId = defaultTabBtn.getAttribute('data-tab');
+        const defaultTabContent = defaultTabId ? document.getElementById(defaultTabId) : null;
+        if (defaultTabContent) {
+            defaultTabContent.classList.add('active');
+        }
+    }
+
+    // Ocultar botones de descarga/ver para dejar solo "Citar"
+    const btnPrimary = document.getElementById('btn-action-primary');
+    if (btnPrimary) btnPrimary.classList.add('hidden');
+
+    const btnSecondary = document.getElementById('btn-action-secondary');
+    if (btnSecondary) btnSecondary.classList.add('hidden');
+
+    renderVersionesList(meta.versiones, meta.version, (v) => {
+        if (v.disponible === false || v.enlace === false) return null;
+        return v.enlace || v.url || null;
+    });
+}
 
 function renderVersionesList(versiones, activeVersion, getVersionUrl) {
     const versionesList = document.getElementById('proj-versiones-list');

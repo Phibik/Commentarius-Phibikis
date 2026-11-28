@@ -1,0 +1,20 @@
+{
+	"nombre":	"Filtrador DNS con Raspberry Pi",
+	"version":	"1.0",
+	"clase":	"opus",
+	"tipo":		"memoria",
+	"tags":		["Electrónica", "Programación"],
+	"importancia":	2,
+	
+	"sinopsis": 	"-",
+
+	"imagenes": 0,
+
+	"versiones": [
+		{
+			"numero": "1.0",
+			"fecha": "-",
+			"comentario": "-"
+		}
+	]
+}

@@ -1,0 +1,22 @@
+{
+	"nombre":	"Fuente CMRBB",
+	"version":	"1.0",
+	"clase":	"opus",
+	"tipo":		"github",
+	"tags":		["Tipografía"],
+	"importancia":	3,
+
+	"enlace": "https://github.com/Phibik/Font-cmrbb",
+	
+	"sinopsis": 	"Tipografía matemática que combina la estética de math italic con trazos de blackboard bold para ofrecer variantes tipográficas de símbolos matemáticos, pensada especialmente para distinguir constantes y operadores monográficos.",
+
+	"imagenes": 1,
+
+	"versiones": [
+		{
+			"numero": "1.0",
+			"fecha": "2024.07.09",
+			"comentario": "Letras claudias completadas"
+		}
+	]
+}

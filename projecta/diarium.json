@@ -1,5 +1,11 @@
 [
 	{
+		"fecha": "2026.11.28",
+		"proyecto": "cmrbb",
+		"texto":
+"Hoy queda publicada la fuente cmrbb, aunque ya estaba terminada. Queda pendiente para la versión 1.0.1 corregir el tamaño nativo de las minúsculas y su espaciado, que debe imitar a la fuente cmr."
+	},
+	{
 		"fecha": "2026.11.26",
 		"proyecto": null,
 		"texto":

@@ -1,0 +1,25 @@
+{
+	"nombre":	"La Hoja de Juegos",
+	"version":	"2.0",
+	"clase":	"opus",
+	"tipo":		"pdf",
+	"tags":		["Juego"],
+	"importancia":	3,
+	
+	"sinopsis": 	"Una hoja a doble cara para jugar de 2 hasta 4 jugadores a varios juegos sobre este papel. Reutilizable, incluye todo tipo de juegos, principalmente de 2 jugadores.",
+
+	"descripcion":	"La primera página contiene los siguientes juegos: 3 en raya, 3 en raya definitivo (ultimate), 4 en raya horizontal, 4 en raya vertical y la sección de anotaciones de hundir la flota.\nEn hundir la flota, cada jugador anota la posición de sus barcos en la sección superior, utilizando el lateral que le corresponde. En el centro se indica el número de barcos de cada tipo. Para jugar, se gira la hoja y se utiliza el tablero de la otra cara. Cada movimiento se registra en las tablas P1 y P2. Para recordar la posición original de los barcos, cada jugador puede doblar el lateral donde los había anotado. En ajedrez y damas también se usa esa misma tabla.\nLa segunda página contiene los siguientes juegos: hundir la flota, ajedrez, damas, cuadrados (sólo puntos negros), tuberías (ambos colores de puntos) y ahorcado.",
+
+	"versiones": [
+		{
+			"numero": "2.0",
+			"fecha": "2022.09.01",
+			"comentario": ""
+		},
+		{
+			"numero": "1.0",
+			"fecha": "<2022.09.01",
+			"comentario": "Predecesora, hoja hecha con estilógrafo"
+		}
+	]
+}
